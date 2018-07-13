@@ -1,11 +1,39 @@
+html {
+  background-color: #7FDBFF;
+}
+
 .box {
-  width: 100px;
-  height: 100px;
-  /*background-color: red;*/
+  height: 80px;
   position: relative;
+  width: 80px;
+  /*background-color: white;*/
+  transition: top 0.1s ease 0s;
+  /*background-color: red;*/
 }
 
 img {
+  height: 80px;
+  width: 80px;
+}
+
+.column1 {
+  background-color: green;
+  height: 250px;
   width: 100px;
-  height: 100px;
+  position: fixed;
+  top: 8px;
+  left: 500px;
+}
+
+.column2 {
+  background-color: green;
+  height: 150px;
+  width: 100px;
+  position: fixed;
+  bottom: 41px;
+  left: 500px;
+}
+.game-container {
+  background-color: grey;
+  height: 650px;
 }
