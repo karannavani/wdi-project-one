@@ -11,6 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if(!gameRunning) {
       if(e.which === 13) {
         startGame();
+        generateColumns();
       } else {
         console.log('Press Enter');
       }
@@ -31,12 +32,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
       window.addEventListener('keypress', function() {
         top = 80;
-        box.style.top = (parseInt(top) + top) + 'px';
       });
     }, 10);
   }
 
+  function generateColumns() {
+    window.setInterval(()=> {
+      $('<div>').css({top: 8, left: 700, height: 200, width: 100, backgroundColor: 'green', position: 'fixed' }).appendTo('.game-container');
+      $('<div>').css({bottom: 41, left: 700, height: 200, width: 100, backgroundColor: 'green', position: 'fixed' }).appendTo('.game-container');
 
+    }, 2000);
+  }
 
 
 }); //closes DOM listener
