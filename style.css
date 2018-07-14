@@ -3,24 +3,27 @@ html {
 }
 
 .box {
-  height: 80px;
   position: relative;
+  display: run-in;
+  height: 80px;
   width: 80px;
-  left: 100px;
-  top: 300px;
-  overflow: hidden;
+  top: -200px;
+  left: 70px;
   /*background-color: white;*/
-  /*transition: top 0.1s ease 0s;*/
+  /*transition: top 0.1s ease;*/
   /*background-color: red;*/
 }
 
 img {
   height: 80px;
   width: 80px;
+  /*position: relative;*/
+  /*overflow: auto;*/
 }
 
 .columns {
   position: relative;
+  height: inherit;
 }
 
 .column1 {
@@ -28,7 +31,7 @@ img {
   height: 250px;
   width: 100px;
   position: relative;
-  top: -80px;
+  top: 0px;
   /*bottom: 0px;*/
   left: 500px;
   right: 0px;
@@ -40,7 +43,7 @@ img {
   height: 150px;
   width: 100px;
   position: relative;
-  top: 171px;
+  top: 250px;
   /*bottom: -171px;*/
   left: 500px;
   transition: left 1s ease;
