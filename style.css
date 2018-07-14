@@ -8,6 +8,7 @@ html {
   width: 80px;
   left: 100px;
   top: 300px;
+  overflow: hidden;
   /*background-color: white;*/
   /*transition: top 0.1s ease 0s;*/
   /*background-color: red;*/
@@ -18,39 +19,35 @@ img {
   width: 80px;
 }
 
+.columns {
+  position: relative;
+}
+
 .column1 {
   background-color: green;
   height: 250px;
   width: 100px;
-  position: fixed;
-  top: 8px;
+  position: relative;
+  top: -80px;
+  /*bottom: 0px;*/
   left: 500px;
+  right: 0px;
+  transition: left 1s ease;
 }
 
 .column2 {
   background-color: green;
   height: 150px;
   width: 100px;
-  position: fixed;
-  bottom: 41px;
+  position: relative;
+  top: 171px;
+  /*bottom: -171px;*/
   left: 500px;
-}
-
-.column3 {
-  background-color: green;
-  height: 250px;
-  width: 100px;
-  position: fixed;
-  bottom: 41px;
-  left: 900px;
+  transition: left 1s ease;
 }
 
 .game-container {
   background-color: grey;
+  overflow: hidden;
   height: 650px;
-}
-
-
-.hidden {
-  visibility: hidden;
 }
