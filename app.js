@@ -1,13 +1,15 @@
 window.addEventListener('DOMContentLoaded', () => {
 
   const box = document.querySelector('.box');
-  let column;
+  let topColArr;
+  let bottomColArr;
   let randomTop;
   let randomBottom;
-  let columnCount = 0;
+  let topColCheck = 0;
+  let left0 = 500;
   let gameRunning = false;
-  let columnTop = 50;
-  let columnLeft;
+  // let columnTop = 50;
+  // let columnLeft;
   let charTop = -100;
   // let right = 100;
   // let bottom = 0;
@@ -55,72 +57,74 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   function generateColumns() {
-    // window.setInterval(()=> {
+    window.setInterval(()=> {
 
-    heightGenerator();
+      function leftGenerator() {
+        console.log(topColArr.length);
+        console.log(topColCheck);
+        console.log(topColArr[topColCheck-1]);
+        if (topColArr.length === topColCheck ) {
+          topColArr[topColCheck-1].style.left = left0 + 'px';
+          bottomColArr[topColCheck-1].style.left = left0 + 'px';
+          left0 = left0 + 260;
+        }
+      }
 
-    $('<div>').addClass('topColumn column').css({backgroundColor: 'green', height: randomTop, width: 100, position: 'absolute', top: 0 }).appendTo('.columns');
-    $('<div>').addClass('bottomColumn column').css({backgroundColor: 'green', height: randomBottom, width: 100, position: 'absolute', bottom: 0 }).appendTo('.columns');
+      heightGenerator();
+      $('<div>').addClass('topColumn column').css({backgroundColor: 'green', height: randomTop, width: 100, position: 'absolute', top: 0 }).appendTo('.columns');
+      $('<div>').addClass('bottomColumn column').css({backgroundColor: 'green', height: randomBottom, width: 100, position: 'absolute', bottom: 0 }).appendTo('.columns');
 
-    heightGenerator();
-    $('<div>').addClass('topColumn column').css({backgroundColor: 'green', height: randomTop, width: 100, position: 'absolute', top: 0 }).appendTo('.columns');
-    $('<div>').addClass('bottomColumn column').css({backgroundColor: 'green', height: randomBottom, width: 100, position: 'absolute', bottom: 0 }).appendTo('.columns');
+      topColArr = document.querySelectorAll('.topColumn');
+      bottomColArr = document.querySelectorAll('.bottomColumn');
 
-    column = document.querySelectorAll('.column');
 
-    column.forEach(function() {
-      columnCount++;
-      console.log(columnCount);
+      topColCheck++;
+      console.log(topColArr);
+      leftGenerator();
 
-      const left0 = 500;
-      const left1 = 500;
 
-      column[0].style.left = left0 + 'px';
-      column[1].style.left = left1 + 'px';
-      column[2].style.left = left1 + 280 + 'px';
-      column[3].style.left = left1 + 280 + 'px';
+      // moveColumns(); // sort out scope issues later
+      //
+      // function moveColumns() {
+      //   // console.log(column);
+      //   window.setInterval(() => {
+      //     left0 -= 30;
+      //     left1 -= 30;
+      //     left2 -= 30;
+      //     left3 -= 30;
+      //     column[0].style.left = left0 + 'px';
+      //     column[1].style.left = left1 + 'px';
+      //     column[2].style.left = left2 + 'px';
+      //     column[3].style.left = left3 + 'px';
+      //     // console.log(column[0].style.left);
+      //     // statement to drag columns bag on conveyor belt
+      //
+      //     if (column[0].style.left === '-10px') {
+      //       left0 += 1000;
+      //       column[0].style.left = left0 + 'px';
+      //     }
+      //     if (column[1].style.left === '-10px') {
+      //       left1 += 1000;
+      //       column[1].style.left = left1 + 'px';
+      //     }
+      //     if (column[2].style.left === '-10px') {
+      //       left2 += 1000;
+      //       column[2].style.left = left2 + 'px';
+      //     }
+      //     if (column[3].style.left === '-10px') {
+      //       left3 += 1000;
+      //       column[3].style.left = left3 + 'px';
+      //     }
+      //
+      //
 
-    //   moveColumns(); // sort out scope issues later
-    //
-    //   function moveColumns() {
-    //     // console.log(column);
-    //     window.setInterval(() => {
-    //       left0 -= 30;
-    //       left1 -= 30;
-    //       left2 -= 30;
-    //       left3 -= 30;
-    //       column[0].style.left = left0 + 'px';
-    //       column[1].style.left = left1 + 'px';
-    //       column[2].style.left = left2 + 'px';
-    //       column[3].style.left = left3 + 'px';
-    //       // console.log(column[0].style.left);
-    //       // statement to drag columns bag on conveyor belt
-    //
-    //       if (column[0].style.left === '-10px') {
-    //         left0 += 1000;
-    //         column[0].style.left = left0 + 'px';
-    //       }
-    //       if (column[1].style.left === '-10px') {
-    //         left1 += 1000;
-    //         column[1].style.left = left1 + 'px';
-    //       }
-    //       if (column[2].style.left === '-10px') {
-    //         left2 += 1000;
-    //         column[2].style.left = left2 + 'px';
-    //       }
-    //       if (column[3].style.left === '-10px') {
-    //         left3 += 1000;
-    //         column[3].style.left = left3 + 'px';
-    //       }
-    //
-    //
-    //     },500);
-    //   }
-    //
-    });
+      // }
 
-    // console.log(column);
-    // }, 20);
+      // });
+
+      // console.log(column);
+    }, 1000);
+
   }
 
 
