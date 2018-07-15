@@ -3,6 +3,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const box = document.querySelector('.box');
   let topColArr;
   let bottomColArr;
+  let columnArr;
   let randomTop;
   let randomBottom;
   let topColCheck = 0;
@@ -10,7 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
   let gameRunning = false;
   // let columnTop = 50;
   // let columnLeft;
-  let charTop = -100;
+  let charTop = -160;
   // let right = 100;
   // let bottom = 0;
 
@@ -20,6 +21,7 @@ window.addEventListener('DOMContentLoaded', () => {
         // startGame();
 
         generateColumns(randomTop,randomBottom);
+
       } else {
         console.log('Press Enter');
       }
@@ -29,20 +31,21 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function startGame() {
     gameRunning = true;
-    window.setInterval(() => {
-      charTop += 1;
-      if (box.style.top !== '570px') {
-        box.style.top = (parseInt(charTop) + charTop) + 'px';
-      } else {
-        gameRunning = false;
-        return;
-      }
-      // console.log(box.style.top);
+    // window.setInterval(() => {
+    charTop += 1;
+    if (box.style.top !== '0px') {
+      box.style.top = (parseInt(charTop) + charTop) + 'px';
+    } else {
+      gameRunning = false;
+      return;
+    }
+    // console.log(box.style.top);
 
-      window.addEventListener('keyup', function() {
-        charTop = -70;
-      });
-    }, 10);
+    window.addEventListener('keyup', function() {
+      console.log('hi');
+      charTop += 70;
+    });
+    // }, 10);
   }
 
   function heightGenerator() {
@@ -58,41 +61,49 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function generateColumns() {
     const columnInterval =  window.setInterval(()=> {
+      // moveColumns();
 
       function leftGenerator() {
         console.log(topColArr.length);
         console.log(topColCheck);
-        console.log(topColArr[topColCheck-1]);
         if (topColArr.length === topColCheck ) {
-          topColArr[topColCheck-1].style.left = left0 + 'px';
+          topColArr[topColCheck-1].style.left = left0  + 'px';
           bottomColArr[topColCheck-1].style.left = left0 + 'px';
-          left0 = left0 + 260;
+          left0 = left0 + 200;
+          topColArr[topColCheck-1].classList.toggle('hidden');
+          bottomColArr[topColCheck-1].classList.toggle('hidden');
         }
       }
 
       heightGenerator();
-      $('<div>').addClass('topColumn column').css({backgroundColor: 'green', height: randomTop, width: 100, position: 'absolute', top: 0 }).appendTo('.columns');
-      $('<div>').addClass('bottomColumn column').css({backgroundColor: 'green', height: randomBottom, width: 100, position: 'absolute', bottom: 0 }).appendTo('.columns');
+      $('<div>').addClass('topColumn column hidden').css({backgroundColor: 'green', height: randomTop, width: 100, position: 'absolute', top: 0 }).appendTo('.columns');
+      $('<div>').addClass('bottomColumn column hidden').css({backgroundColor: 'green', height: randomBottom, width: 100, position: 'absolute', bottom: 0 }).appendTo('.columns');
 
       topColArr = document.querySelectorAll('.topColumn');
       bottomColArr = document.querySelectorAll('.bottomColumn');
-
+      columnArr = document.querySelectorAll('.column');
 
       topColCheck++;
-      console.log(topColArr);
       leftGenerator();
+        moveColumns();
 
+      function moveColumns() {
 
-      // moveColumns(); // sort out scope issues later
-      //
-      // function moveColumns() {
+        columnArr.forEach(function(item) {
+        window.setTimeout(() => {
+            console.log(item.style.left);
+            item.style.left = parseInt(item.style.left) - 100 + 'px';
+          });
+          // topColArr[topColCheck-2].style.left = parseInt(topColArr[topColCheck-2].style.left) - 100 + 'px';
+          // bottomColArr[topColCheck-2].style.left = parseInt(bottomColArr[topColCheck-2].style.left) - 100 + 'px';
+          // console.log(parseInt($(columnArr[0]).css('left')));
+          // console.log('hi');
+        },1);
+      }
       //   // console.log(column);
-      //   window.setInterval(() => {
-      //     left0 -= 30;
-      //     left1 -= 30;
-      //     left2 -= 30;
-      //     left3 -= 30;
-      //     column[0].style.left = left0 + 'px';
+      // bottomColArr[topColCheck-1].style.left = left0 + 'px';
+      // left0 -= 30;
+      // columnArr[0].style.left = left0 + 'px';
       //     column[1].style.left = left1 + 'px';
       //     column[2].style.left = left2 + 'px';
       //     column[3].style.left = left3 + 'px';
@@ -115,12 +126,9 @@ window.addEventListener('DOMContentLoaded', () => {
       //       left3 += 1000;
       //       column[3].style.left = left3 + 'px';
       //     }
-      //
+
       //
 
-      // }
-
-      // });
 
       // console.log(column);
     }, 1000);

@@ -4,14 +4,11 @@ html {
 
 .box {
   position: relative;
-  display: run-in;
   height: 80px;
   width: 80px;
-  top: -200px;
+  top: 10px;
   left: 70px;
-  /*background-color: white;*/
   /*transition: top 0.1s ease;*/
-  /*background-color: red;*/
 }
 
 img {
@@ -26,31 +23,16 @@ img {
   height: inherit;
 }
 
-.column1 {
-  background-color: green;
-  height: 250px;
-  width: 100px;
-  position: relative;
-  top: 0px;
-  /*bottom: 0px;*/
-  left: 500px;
-  right: 0px;
-  transition: left 1s ease;
-}
-
-.column2 {
-  background-color: green;
-  height: 150px;
-  width: 100px;
-  position: relative;
-  top: 250px;
-  /*bottom: -171px;*/
-  left: 500px;
-  transition: left 1s ease;
+.column {
+  transition: left 2s ease;
 }
 
 .game-container {
   background-color: grey;
   overflow: hidden;
   height: 650px;
+}
+
+.hidden {
+  visibility: hidden;
 }
