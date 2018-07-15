@@ -4,6 +4,7 @@ window.addEventListener('DOMContentLoaded', () => {
   let column;
   let randomTop;
   let randomBottom;
+  let columnCount = 0;
   let gameRunning = false;
   let columnTop = 50;
   let columnLeft;
@@ -15,14 +16,14 @@ window.addEventListener('DOMContentLoaded', () => {
     if(!gameRunning) {
       if(e.which === 13) {
         // startGame();
-        heightGenerator();
+
         generateColumns(randomTop,randomBottom);
       } else {
         console.log('Press Enter');
       }
     }
   });
-  // startGame();
+
 
   function startGame() {
     gameRunning = true;
@@ -47,33 +48,37 @@ window.addEventListener('DOMContentLoaded', () => {
     randomBottom = Math.floor(Math.random()*600);
 
     if (randomBottom > 150 && randomTop > 150 && (randomTop + randomBottom) > 500 && (randomTop + randomBottom) < 520) {
-      console.log('after function');
       return;
     } else {
       heightGenerator();
     }
   }
 
-  function generateColumns(randomTop,randomBottom) {
+  function generateColumns() {
     // window.setInterval(()=> {
-    console.log(randomTop);
-    console.log(randomBottom);
+
+    heightGenerator();
+
     $('<div>').addClass('topColumn column').css({backgroundColor: 'green', height: randomTop, width: 100, position: 'absolute', top: 0 }).appendTo('.columns');
     $('<div>').addClass('bottomColumn column').css({backgroundColor: 'green', height: randomBottom, width: 100, position: 'absolute', bottom: 0 }).appendTo('.columns');
-    $('<div>').addClass('topColumn column').css({backgroundColor: 'green', height: 250, width: 100, position: 'absolute', top: 0 }).appendTo('.columns');
-    $('<div>').addClass('bottomColumn column').css({backgroundColor: 'green', height: 220, width: 100, position: 'absolute', bottom: 0 }).appendTo('.columns');
+
+    heightGenerator();
+    $('<div>').addClass('topColumn column').css({backgroundColor: 'green', height: randomTop, width: 100, position: 'absolute', top: 0 }).appendTo('.columns');
+    $('<div>').addClass('bottomColumn column').css({backgroundColor: 'green', height: randomBottom, width: 100, position: 'absolute', bottom: 0 }).appendTo('.columns');
+
     column = document.querySelectorAll('.column');
-    // console.log($('.topColumn').css('height'));
-    column.forEach(function(item) {
-      let left0 = 500;
-      let left1 = 500;
-      let left2 = 700;
-      let left3 = 700;
+
+    column.forEach(function() {
+      columnCount++;
+      console.log(columnCount);
+
+      const left0 = 500;
+      const left1 = 500;
 
       column[0].style.left = left0 + 'px';
       column[1].style.left = left1 + 'px';
-      column[2].style.left = left2 + 'px';
-      column[3].style.left = left3 + 'px';
+      column[2].style.left = left1 + 280 + 'px';
+      column[3].style.left = left1 + 280 + 'px';
 
     //   moveColumns(); // sort out scope issues later
     //
