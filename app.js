@@ -57,7 +57,7 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   function generateColumns() {
-    window.setInterval(()=> {
+    const columnInterval =  window.setInterval(()=> {
 
       function leftGenerator() {
         console.log(topColArr.length);
@@ -124,7 +124,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
       // console.log(column);
     }, 1000);
-
+    $(window).click(function() {
+      clearInterval(columnInterval);
+    });
   }
 
 
