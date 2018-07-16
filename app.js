@@ -9,7 +9,11 @@ window.addEventListener('DOMContentLoaded', () => {
   let topColCheck = 0;
   let left0 = 500;
   let gameRunning = false;
-  let charTop = -160;
+  let charTop = 280;
+  const charLeft = box.offsetLeft;
+  const charRight = parseInt(charLeft) + 70 + 'px';
+  box.style.top = (parseInt(charTop)) + 'px';
+  const charBottom = (parseInt(box.style.top + 70) + 'px');
   // let right = 100;
   // let bottom = 0;
 
@@ -18,7 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
     randomTop = Math.floor(Math.random()*600);
     randomBottom = Math.floor(Math.random()*600);
 
-    if (randomBottom > 150 && randomTop > 150 && (randomTop + randomBottom) > 500 && (randomTop + randomBottom) < 520) {
+    if (randomBottom > 150 && randomTop > 150 && (randomTop + randomBottom) === 510 ) {
       return;
     } else {
       heightGenerator();
@@ -30,7 +34,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
     columnArr.forEach(function(item) {
       window.setInterval(() => {
-        console.log(item.style.left);
         item.style.left = parseInt(item.style.left) - 80 + 'px';
       }, 400);
 
@@ -39,12 +42,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
   //generates left gap for each newly generated column
   function leftGenerator() {
-    console.log(topColArr.length);
-    console.log(topColCheck);
+    // console.log(topColArr.length);
+    // console.log(topColCheck);
     if (topColArr.length === topColCheck ) {
       topColArr[topColCheck-1].style.left = left0  + 'px';
       bottomColArr[topColCheck-1].style.left = left0 + 'px';
-      left0 = left0 + 260;
+      left0 = left0 + 310;
       topColArr[topColCheck-1].classList.toggle('hidden');
       bottomColArr[topColCheck-1].classList.toggle('hidden');
     }
@@ -57,7 +60,6 @@ window.addEventListener('DOMContentLoaded', () => {
       heightGenerator();
       $('<div>').addClass('topColumn column hidden').css({backgroundColor: 'green', height: randomTop, width: 100, position: 'absolute', top: 0 }).appendTo('.columns');
       $('<div>').addClass('bottomColumn column hidden').css({backgroundColor: 'green', height: randomBottom, width: 100, position: 'absolute', bottom: 0 }).appendTo('.columns');
-
       topColArr = document.querySelectorAll('.topColumn');
       bottomColArr = document.querySelectorAll('.bottomColumn');
       columnArr = document.querySelectorAll('.column');
@@ -73,24 +75,52 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function controlChar() {
+    $(window).keypress(function(e) {
+      if(e.which === 32) {
+        charTop = charTop - 35;
+        box.style.top = (parseInt(charTop)) + 'px';
+      }
+    });
+
+
+    setInterval(function(){
+      charTop += 10;
+      box.style.top = (parseInt(charTop)) + 'px';
+      // console.log('Solo bottom is '+ parseInt(box.style.top + 70) + 'px');
+    },100);
+
+  }
+
+  function isDead() {
+    setInterval(function(){
+      topColArr = document.querySelectorAll('.topColumn');
+      topColArr.forEach(function(item) {
+        const divRight = parseInt(item.style.left) + 100 + 'px';
+        // console.log('left is' + item.style.left);
+        // console.log('div right is ' + divRight);
+        // console.log('Solo right is '+charRight);
+        // console.log(item.style.left);
+        // console.log('Solo left is ' + ($('.box').css('left')));
+        console.log(charRight, item.style.left, charRight <= item.style.left);
+        // console.log(box.offsetLeft, divRight, box.offsetLeft <= divRight);
+        if (charRight <= item.style.left) {
+          //     // (box.style.top >= item.style.height || charBottom >= item.style.top) &&
+          console.log('collision????');
+        }
+      });
+    }, 1000);
+  }
+
+
   function startGame() {
     gameRunning = true;
-    // window.setInterval(() => {
-    charTop += 1;
-    if (box.style.top !== '0px') {
-      box.style.top = (parseInt(charTop) + charTop) + 'px';
+    if (box.style.top !== 'abc') {
+      controlChar();
     } else {
       gameRunning = false;
       return;
     }
-    // console.log(box.style.top);
-
-
-    window.addEventListener('keyup', function() {
-      console.log('hi');
-      charTop += 70;
-    });
-    // }, 10);
   }
 
 
@@ -100,20 +130,27 @@ window.addEventListener('DOMContentLoaded', () => {
       if(e.which === 13) {
         startGame();
         generateColumns(randomTop,randomBottom);
+        isDead();
       } else {
         console.log('Press Enter');
       }
     }
   });
 
-
-
-
-
 }); //closes DOM listener
 
 
 
+
+
+
+
+
+
+
+
+
+//Code Graveyard
 //     // statement to drag columns bag on conveyor belt
 //
 //     if (column[0].style.left === '-10px') {

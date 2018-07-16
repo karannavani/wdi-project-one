@@ -3,17 +3,16 @@ html {
 }
 
 .box {
-  position: relative;
-  height: 80px;
-  width: 80px;
-  top: 10px;
-  left: 70px;
-  /*transition: top 0.1s ease;*/
+  height: 70px;
+  left: 200px;
+  position: absolute;
+  width: 70px;
+  transition: top 0.1s ease;
 }
 
 img {
-  height: 80px;
-  width: 80px;
+  height: 70px;
+  width: 70px;
   /*position: relative;*/
   /*overflow: auto;*/
 }
@@ -28,6 +27,7 @@ img {
 }
 
 .game-container {
+  position: relative;
   background-color: grey;
   overflow: hidden;
   height: 650px;
