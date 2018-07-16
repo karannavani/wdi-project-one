@@ -13,7 +13,6 @@ window.addEventListener('DOMContentLoaded', () => {
   const charLeft = box.offsetLeft;
   const charRight = parseInt(charLeft) + 70 + 'px';
   box.style.top = (parseInt(charTop)) + 'px';
-  const charBottom = (parseInt(box.style.top + 70) + 'px');
   // let right = 100;
   // let bottom = 0;
 
@@ -22,7 +21,7 @@ window.addEventListener('DOMContentLoaded', () => {
     randomTop = Math.floor(Math.random()*600);
     randomBottom = Math.floor(Math.random()*600);
 
-    if (randomBottom > 150 && randomTop > 150 && (randomTop + randomBottom) === 510 ) {
+    if (randomBottom > 150 && randomTop > 150 && (randomTop + randomBottom) > 500 && (randomTop + randomBottom) < 520) {
       return;
     } else {
       heightGenerator();
@@ -34,8 +33,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     columnArr.forEach(function(item) {
       window.setInterval(() => {
-        item.style.left = parseInt(item.style.left) - 80 + 'px';
-      }, 400);
+        item.style.left = parseInt(item.style.left) - 20 + 'px';
+      }, 100);
 
     });
   }
@@ -95,21 +94,24 @@ window.addEventListener('DOMContentLoaded', () => {
   function isDead() {
     setInterval(function(){
       topColArr = document.querySelectorAll('.topColumn');
-      topColArr.forEach(function(item) {
-        const divRight = parseInt(item.style.left) + 100 + 'px';
-        // console.log('left is' + item.style.left);
-        // console.log('div right is ' + divRight);
-        // console.log('Solo right is '+charRight);
-        // console.log(item.style.left);
-        // console.log('Solo left is ' + ($('.box').css('left')));
-        console.log(charRight, item.style.left, charRight <= item.style.left);
-        // console.log(box.offsetLeft, divRight, box.offsetLeft <= divRight);
-        if (charRight <= item.style.left) {
-          //     // (box.style.top >= item.style.height || charBottom >= item.style.top) &&
-          console.log('collision????');
-        }
-      });
-    }, 1000);
+      let index = 0;
+      const divRight = parseInt(topColArr[index].style.left + 100 + 'px');
+      let keyCol = topColArr[index];
+      const charBottom = parseInt(box.style.top) + 70 + 'px';
+      // console.log(charRight, topColArr[0].style.left, charRight >= topColArr[0].style.left);
+      // console.log(charLeft, divRight, charLeft <= divRight);
+      // console.log(charBottom, bottomColArr[0].style.height, charBottom >= bottomColArr[0].style.top);
+      // console.log(charRight >= topColArr[0].style.left && charLeft <= divRight);
+      if ((box.style.top <= topColArr[0].style.height || parseInt(charBottom) >= bottomColArr[0].offsetTop)
+      &&
+      (charRight >= topColArr[0].style.left && charLeft <= divRight)) {
+        console.log('collision!!!');
+        // index++;
+        // keyCol = topColArr[index];
+      }
+      // console.log(charRight, topColArr[0].style.left, charRight <= topColArr[0].style.left);
+      // console.log(box.offsetLeft, divRight, box.offsetLeft <= divRight);
+    }, 100);
   }
 
 
@@ -138,58 +140,3 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
 }); //closes DOM listener
-
-
-
-
-
-
-
-
-
-
-
-
-//Code Graveyard
-//     // statement to drag columns bag on conveyor belt
-//
-//     if (column[0].style.left === '-10px') {
-//       left0 += 1000;
-//       column[0].style.left = left0 + 'px';
-//     }
-//     if (column[1].style.left === '-10px') {
-//       left1 += 1000;
-//       column[1].style.left = left1 + 'px';
-//     }
-//     if (column[2].style.left === '-10px') {
-//       left2 += 1000;
-//       column[2].style.left = left2 + 'px';
-//     }
-//     if (column[3].style.left === '-10px') {
-//       left3 += 1000;
-//       column[3].style.left = left3 + 'px';
-//     }
-
-//
-
-//with left working
-// function startGame() {
-//   window.setInterval(() => {
-//     top += 1;
-//     left +=1;
-//     // right +=1;
-//     if (box.style.top < '550px') {
-//       box.style.top = (parseInt(top) + top) + 'px';
-//     } else {
-//       return;
-//     }
-//     console.log(box.style.top);
-//     box.style.left = (parseInt(left) + left) + 'px';
-//     // box.style.right = (parseInt(right) + right) + 'px';
-//     window.addEventListener('keypress', function() {
-//       top = 120;
-//       box.style.top = (parseInt(top) + top) + 'px';
-//     });
-//   }, 10);
-//
-// }
