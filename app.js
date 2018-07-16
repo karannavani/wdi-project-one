@@ -9,25 +9,69 @@ window.addEventListener('DOMContentLoaded', () => {
   let topColCheck = 0;
   let left0 = 500;
   let gameRunning = false;
-  // let columnTop = 50;
-  // let columnLeft;
   let charTop = -160;
   // let right = 100;
   // let bottom = 0;
 
-  $(window).keypress(function(e) {
-    if(!gameRunning) {
-      if(e.which === 13) {
-        // startGame();
+  //generate random heights for columns
+  function heightGenerator() {
+    randomTop = Math.floor(Math.random()*600);
+    randomBottom = Math.floor(Math.random()*600);
 
-        generateColumns(randomTop,randomBottom);
-
-      } else {
-        console.log('Press Enter');
-      }
+    if (randomBottom > 150 && randomTop > 150 && (randomTop + randomBottom) > 500 && (randomTop + randomBottom) < 520) {
+      return;
+    } else {
+      heightGenerator();
     }
-  });
+  }
 
+  //moves the columns from right to left
+  function moveColumns() {
+
+    columnArr.forEach(function(item) {
+      window.setInterval(() => {
+        console.log(item.style.left);
+        item.style.left = parseInt(item.style.left) - 80 + 'px';
+      }, 400);
+
+    });
+  }
+
+  //generates left gap for each newly generated column
+  function leftGenerator() {
+    console.log(topColArr.length);
+    console.log(topColCheck);
+    if (topColArr.length === topColCheck ) {
+      topColArr[topColCheck-1].style.left = left0  + 'px';
+      bottomColArr[topColCheck-1].style.left = left0 + 'px';
+      left0 = left0 + 260;
+      topColArr[topColCheck-1].classList.toggle('hidden');
+      bottomColArr[topColCheck-1].classList.toggle('hidden');
+    }
+  }
+
+  //generates columns and appends them to 'columns' class
+  function generateColumns() {
+    const columnInterval =  window.setInterval(()=> {
+
+      heightGenerator();
+      $('<div>').addClass('topColumn column hidden').css({backgroundColor: 'green', height: randomTop, width: 100, position: 'absolute', top: 0 }).appendTo('.columns');
+      $('<div>').addClass('bottomColumn column hidden').css({backgroundColor: 'green', height: randomBottom, width: 100, position: 'absolute', bottom: 0 }).appendTo('.columns');
+
+      topColArr = document.querySelectorAll('.topColumn');
+      bottomColArr = document.querySelectorAll('.bottomColumn');
+      columnArr = document.querySelectorAll('.column');
+
+      topColCheck++;
+      leftGenerator();
+
+    }, 50);
+
+    $(window).click(function() {
+      clearInterval(columnInterval);
+      moveColumns();
+    });
+  }
 
   function startGame() {
     gameRunning = true;
@@ -41,6 +85,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     // console.log(box.style.top);
 
+
     window.addEventListener('keyup', function() {
       console.log('hi');
       charTop += 70;
@@ -48,66 +93,21 @@ window.addEventListener('DOMContentLoaded', () => {
     // }, 10);
   }
 
-  function heightGenerator() {
-    randomTop = Math.floor(Math.random()*600);
-    randomBottom = Math.floor(Math.random()*600);
 
-    if (randomBottom > 150 && randomTop > 150 && (randomTop + randomBottom) > 500 && (randomTop + randomBottom) < 520) {
-      return;
-    } else {
-      heightGenerator();
-    }
-  }
-
-  function generateColumns() {
-    const columnInterval =  window.setInterval(()=> {
-      // moveColumns();
-
-      function leftGenerator() {
-        console.log(topColArr.length);
-        console.log(topColCheck);
-        if (topColArr.length === topColCheck ) {
-          topColArr[topColCheck-1].style.left = left0  + 'px';
-          bottomColArr[topColCheck-1].style.left = left0 + 'px';
-          left0 = left0 + 260;
-          topColArr[topColCheck-1].classList.toggle('hidden');
-          bottomColArr[topColCheck-1].classList.toggle('hidden');
-        }
+  // listens for the enter key and then starts the game
+  $(window).keypress(function(e) {
+    if(!gameRunning) {
+      if(e.which === 13) {
+        startGame();
+        generateColumns(randomTop,randomBottom);
+      } else {
+        console.log('Press Enter');
       }
-
-      heightGenerator();
-      $('<div>').addClass('topColumn column hidden').css({backgroundColor: 'green', height: randomTop, width: 100, position: 'absolute', top: 0 }).appendTo('.columns');
-      $('<div>').addClass('bottomColumn column hidden').css({backgroundColor: 'green', height: randomBottom, width: 100, position: 'absolute', bottom: 0 }).appendTo('.columns');
-
-      topColArr = document.querySelectorAll('.topColumn');
-      bottomColArr = document.querySelectorAll('.bottomColumn');
-      columnArr = document.querySelectorAll('.column');
-
-      topColCheck++;
-      leftGenerator();
+    }
+  });
 
 
 
-
-      // console.log(column);
-    }, 50);
-
-    $(window).click(function() {
-      clearInterval(columnInterval);
-      moveColumns();
-    });
-  }
-
-  function moveColumns() {
-
-    columnArr.forEach(function(item) {
-      window.setInterval(() => {
-        console.log(item.style.left);
-        item.style.left = parseInt(item.style.left) - 100 + 'px';
-      }, 400);
-
-    });
-  }
 
 
 }); //closes DOM listener
