@@ -24,7 +24,7 @@ img {
 }
 
 .column {
-  transition: left 2s ease;
+  transition: all 7s ease;
 }
 
 .game-container {

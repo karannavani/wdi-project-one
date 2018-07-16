@@ -69,7 +69,7 @@ window.addEventListener('DOMContentLoaded', () => {
         if (topColArr.length === topColCheck ) {
           topColArr[topColCheck-1].style.left = left0  + 'px';
           bottomColArr[topColCheck-1].style.left = left0 + 'px';
-          left0 = left0 + 200;
+          left0 = left0 + 260;
           topColArr[topColCheck-1].classList.toggle('hidden');
           bottomColArr[topColCheck-1].classList.toggle('hidden');
         }
@@ -85,64 +85,55 @@ window.addEventListener('DOMContentLoaded', () => {
 
       topColCheck++;
       leftGenerator();
-        moveColumns();
 
-      function moveColumns() {
 
-        columnArr.forEach(function(item) {
-        window.setTimeout(() => {
-            console.log(item.style.left);
-            item.style.left = parseInt(item.style.left) - 100 + 'px';
-          });
-          // topColArr[topColCheck-2].style.left = parseInt(topColArr[topColCheck-2].style.left) - 100 + 'px';
-          // bottomColArr[topColCheck-2].style.left = parseInt(bottomColArr[topColCheck-2].style.left) - 100 + 'px';
-          // console.log(parseInt($(columnArr[0]).css('left')));
-          // console.log('hi');
-        },1);
-      }
-      //   // console.log(column);
-      // bottomColArr[topColCheck-1].style.left = left0 + 'px';
-      // left0 -= 30;
-      // columnArr[0].style.left = left0 + 'px';
-      //     column[1].style.left = left1 + 'px';
-      //     column[2].style.left = left2 + 'px';
-      //     column[3].style.left = left3 + 'px';
-      //     // console.log(column[0].style.left);
-      //     // statement to drag columns bag on conveyor belt
-      //
-      //     if (column[0].style.left === '-10px') {
-      //       left0 += 1000;
-      //       column[0].style.left = left0 + 'px';
-      //     }
-      //     if (column[1].style.left === '-10px') {
-      //       left1 += 1000;
-      //       column[1].style.left = left1 + 'px';
-      //     }
-      //     if (column[2].style.left === '-10px') {
-      //       left2 += 1000;
-      //       column[2].style.left = left2 + 'px';
-      //     }
-      //     if (column[3].style.left === '-10px') {
-      //       left3 += 1000;
-      //       column[3].style.left = left3 + 'px';
-      //     }
-
-      //
 
 
       // console.log(column);
-    }, 1000);
+    }, 50);
+
     $(window).click(function() {
       clearInterval(columnInterval);
+      moveColumns();
+    });
+  }
+
+  function moveColumns() {
+
+    columnArr.forEach(function(item) {
+      window.setInterval(() => {
+        console.log(item.style.left);
+        item.style.left = parseInt(item.style.left) - 100 + 'px';
+      }, 400);
+
     });
   }
 
 
-
-
-
-
 }); //closes DOM listener
+
+
+
+//     // statement to drag columns bag on conveyor belt
+//
+//     if (column[0].style.left === '-10px') {
+//       left0 += 1000;
+//       column[0].style.left = left0 + 'px';
+//     }
+//     if (column[1].style.left === '-10px') {
+//       left1 += 1000;
+//       column[1].style.left = left1 + 'px';
+//     }
+//     if (column[2].style.left === '-10px') {
+//       left2 += 1000;
+//       column[2].style.left = left2 + 'px';
+//     }
+//     if (column[3].style.left === '-10px') {
+//       left3 += 1000;
+//       column[3].style.left = left3 + 'px';
+//     }
+
+//
 
 //with left working
 // function startGame() {
