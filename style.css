@@ -1,13 +1,19 @@
 html {
-  background-color: #7FDBFF;
+  background-color: black;
+}
+
+body {
+  margin: 0;
 }
 
 .box {
-  height: 70px;
+  height: 55px;
   left: 200px;
   position: absolute;
-  width: 70px;
-  transition: top 0.1s ease;
+  width: 55px;
+  border-radius: 80%;
+  /*background-color: white;*/
+  transition: top 0.08s ease;
 }
 
 img {
@@ -23,7 +29,7 @@ img {
 }
 
 .column {
-  transition: all 0.1s ease;
+  /*transition: all 0.1s ease;*/
 }
 
 .game-container {
@@ -31,6 +37,9 @@ img {
   background-color: grey;
   overflow: hidden;
   height: 650px;
+  background-image: url('images/3.jpg');
+  background-size: auto 650px;
+  background-repeat: no-repeat;
 }
 
 .hidden {
@@ -38,8 +47,29 @@ img {
 }
 
 .score {
+  /*margin: 0 auto;*/
+  font-family: 'Geostar Fill', cursive;
+  padding-left: 50px;
+  padding-right: 50px;
+  font-weight: 800;
+  font-size: 40px;
   color: white;
-  margin: auto;
-  background-color: red;
+  left: 500px;
+  top: 0;
+  background-color: grey;
   position: absolute;
+}
+
+.start-screen {
+  font-family: 'Geostar Fill', cursive;
+  padding-top: 50%;
+  bottom: 5%;
+  font-size: 60px;
+  padding-left: 20px;
+  /*padding: 20px;*/
+  height: 650px;
+  width: 100%;
+  position: absolute;
+  background-color: black;
+  color: white;
 }

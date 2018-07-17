@@ -1,5 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
-
+  let gameRunning = false;
   const box = document.querySelector('.box');
   let topColArr;
   let bottomColArr;
@@ -8,11 +8,11 @@ window.addEventListener('DOMContentLoaded', () => {
   let randomBottom;
   let topColCheck = 0;
   let left0 = 500;
-  let gameRunning = false;
   let charTop = 280;
   const charLeft = box.offsetLeft;
-  const charRight = parseInt(charLeft) + 70 + 'px';
+  const charRight = parseInt(charLeft) + 60 + 'px';
   box.style.top = (parseInt(charTop)) + 'px';
+  let speed = 250;
 
   //generate random heights for columns
   function heightGenerator() {
@@ -26,25 +26,14 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  //moves the columns from right to left
-  function moveColumns() {
 
-    columnArr.forEach(function(item) {
-      window.setInterval(() => {
-        item.style.left = parseInt(item.style.left) - 20 + 'px';
-      }, 100);
-
-    });
-  }
 
   //generates left gap for each newly generated column
   function leftGenerator() {
-    // console.log(topColArr.length);
-    // console.log(topColCheck);
     if (topColArr.length === topColCheck ) {
       topColArr[topColCheck-1].style.left = left0  + 'px';
       bottomColArr[topColCheck-1].style.left = left0 + 'px';
-      left0 = left0 + 310;
+      left0 = left0 + 325;
       topColArr[topColCheck-1].classList.toggle('hidden');
       bottomColArr[topColCheck-1].classList.toggle('hidden');
     }
@@ -52,24 +41,33 @@ window.addEventListener('DOMContentLoaded', () => {
 
   //generates columns and appends them to 'columns' class
   function generateColumns() {
+
     const columnInterval =  window.setInterval(()=> {
 
       heightGenerator();
-      $('<div>').addClass('topColumn column hidden').css({backgroundColor: 'green', height: randomTop, width: 100, position: 'absolute', top: 0 }).appendTo('.columns');
-      $('<div>').addClass('bottomColumn column hidden').css({backgroundColor: 'green', height: randomBottom, width: 100, position: 'absolute', bottom: 0 }).appendTo('.columns');
+      $('<div>').addClass('topColumn column hidden').css({backgroundColor: '#85144b', height: randomTop, width: 100, position: 'absolute', top: 0 }).appendTo('.columns');
+      $('<div>').addClass('bottomColumn column hidden').css({backgroundColor: '#85144b', height: randomBottom, width: 100, position: 'absolute', bottom: 0 }).appendTo('.columns');
       topColArr = document.querySelectorAll('.topColumn');
       bottomColArr = document.querySelectorAll('.bottomColumn');
       columnArr = document.querySelectorAll('.column');
-
       topColCheck++;
       leftGenerator();
+    }, speed);
 
-    }, 50);
-
-    $(window).click(function() {
-      clearInterval(columnInterval);
-      moveColumns();
-    });
+    // $(window).click(function() {
+    //   clearInterval(columnInterval);
+    //   moveColumns();
+    //
+    // });
+  }
+  //moves the columns from right to left
+  function moveColumns() {
+    window.setInterval(() => {
+      columnArr = document.querySelectorAll('.column');
+      columnArr.forEach(function(item) {
+        item.style.left = parseInt(item.style.left) - 5 + 'px';
+      });
+    }, 25);
   }
 
   function controlChar() {
@@ -82,66 +80,77 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
     setInterval(function(){
-      charTop += 10;
+      charTop += 12;
       box.style.top = (parseInt(charTop)) + 'px';
-      // console.log('Solo bottom is '+ parseInt(box.style.top + 70) + 'px');
     },100);
 
   }
 
   function isDead() {
     let index = 0;
+    const scoreDiv = document.querySelector('.score');
+    scoreDiv.textContent = index;
     setInterval(function(){
+      console.log(speed);
       topColArr = document.querySelectorAll('.topColumn');
       const divRight = parseInt(topColArr[index].style.left + 100 + 'px');
-      // let keyCol = topColArr[index];
-      const charBottom = parseInt(box.style.top) + 70 + 'px';
-      // console.log(index);
-      // console.log(parseInt(box.style.top), parseInt(topColArr[index].style.height), parseInt(charBottom), parseInt(bottomColArr[index].offsetTop));
-      // console.log(parseInt(box.style.top) <= parseInt(topColArr[index].style.height)|| parseInt(charBottom) >= parseInt(bottomColArr[index].offsetTop)
-      // &&
-      // (charRight >= topColArr[index].style.left && charLeft <= divRight));
+
+      const charBottom = parseInt(box.style.top) + 60 + 'px';
 
       if ((box.style.top <= topColArr[index].style.height || parseInt(charBottom) >= bottomColArr[index].offsetTop)
       && (charRight >= topColArr[index].style.left && charLeft <= divRight)) {
-
+        // alert('Collision!');
         console.log('collision!!!');
-        gameRunning = false;
+        // gameRunning = false;
         return;
 
       } else if ((parseInt(divRight) + 85) < charLeft){
         console.log('crossed');
         index = index + 1;
+        scoreDiv.textContent = index;
         return false;
       }
-      // console.log(charRight, topColArr[0].style.left, charRight <= topColArr[0].style.left);
-      // console.log(box.offsetLeft, divRight, box.offsetLeft <= divRight);
+
     }, 100);
   }
 
 
   function startGame() {
-    gameRunning = true;
-    if (box.style.top !== 'abc') {
-      controlChar();
-    } else {
-      gameRunning = false;
-      return;
-    }
+    controlChar();
+
+  }
+
+  function startScreen() {
+    $('.start-screen').toggleClass('hidden');
+    $('.game-container').toggleClass('hidden');
+    $(window).keypress(function(e) {
+
+      if(!gameRunning) {
+        if(e.which === 32) {
+          gameRunning = true;
+          startGame();
+          moveColumns();
+          isDead();
+        }
+      }
+
+    });
   }
 
 
   // listens for the enter key and then starts the game
-  $(window).keypress(function(e) {
-    if(!gameRunning) {
+  if(!gameRunning) {
+    generateColumns(randomTop,randomBottom);
+    $(window).keypress(function(e) {
       if(e.which === 13) {
-        startGame();
-        generateColumns(randomTop,randomBottom);
-        isDead();
+        startScreen();
+        speed = 1500;
+        console.log(gameRunning);
+        return true;
       } else {
         console.log('Press Enter');
       }
-    }
-  });
+    });
+  }
 
 }); //closes DOM listener
