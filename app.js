@@ -120,16 +120,26 @@ window.addEventListener('DOMContentLoaded', () => {
   function startScreen() {
     $('.start-screen').toggleClass('hidden');
     $('.game-container').toggleClass('hidden');
+    const countdownDiv = $('.countdown');
+    let time = 2;
+    const countdownInterval = setInterval(function() {
+      console.log(time);
+      console.log();
+      countdownDiv.html(time);
+      time = time - 1;
+    },1000);
 
-    if(!gameRunning) {
-      gameRunning = true;
-      startGame();
-      moveColumns();
-      isDead();
-
-    }
+    setTimeout(function() {
+      clearInterval(countdownInterval);
+      $('.countdown').toggleClass('hidden');
+      if(!gameRunning) {
+        gameRunning = true;
+        startGame();
+        moveColumns();
+        isDead();
+      }
+    }, 3000);
   }
-
 
   // listens for the enter key and then starts the game
   if(!gameRunning) {
@@ -138,10 +148,7 @@ window.addEventListener('DOMContentLoaded', () => {
       if(e.which === 13) {
         startScreen();
         speed = 1500;
-        console.log(gameRunning);
         return true;
-      } else {
-        console.log('Press Enter');
       }
     });
   }

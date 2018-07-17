@@ -59,6 +59,19 @@ img {
   background-color: grey;
   position: absolute;
 }
+.countdown {
+  /*margin: 0 auto;*/
+  top: 25%;
+  left: 20%;
+  position: absolute;
+  font-family: 'Geostar Fill', cursive;
+  padding-left: 50px;
+  padding-right: 50px;
+  font-weight: 800;
+  font-size: 40px;
+  color: white;
+  background-color: black;
+}
 
 .start-screen {
   font-family: 'Geostar Fill', cursive;
