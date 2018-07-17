@@ -8,10 +8,10 @@ window.addEventListener('DOMContentLoaded', () => {
   let randomBottom;
   let topColCheck = 0;
   let left0 = 500;
-  let charTop = 280;
+  // let charTop = 280;
   const charLeft = box.offsetLeft;
   const charRight = parseInt(charLeft) + 60 + 'px';
-  box.style.top = (parseInt(charTop)) + 'px';
+  box.style.top = 280 + 'px';
   let speed = 250;
   let collision = false;
 
@@ -69,26 +69,37 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     }, 25);
   }
+  
+  //gravity
+  let yVelocity = 0;
+  let yPos = 280;
+  const gravity = 0.5;
 
-  //controls the character jump
-  function controlChar() {
-    $(window).keypress(function(e) {
-      if(e.which === 32) {
-        charTop = charTop - 40;
-        box.style.top = (parseInt(charTop)) + 'px';
-      }
-    });
-
-    setInterval(function(){
-      const charBottom = parseInt(box.style.top) + 55;
-      if(charBottom < 634) {
-
-        charTop += 8;
-        box.style.top = (parseInt(charTop)) + 'px';
-      }
-    },50);
-
+  function calculateY() {
+    if(yPos < 620) {
+      yPos -= yVelocity;
+      yVelocity -= gravity;
+    }
   }
+
+  function drawCharacter() {
+    box.style.top = `${parseInt(yPos)}px`;
+  }
+
+  window.addEventListener('keydown', e => {
+    if (e.which === 32) {
+      e.preventDefault();
+      yVelocity = 5;
+    }
+
+  });
+
+  setInterval( function(){
+    if(gameRunning) {
+      calculateY();
+      drawCharacter();
+    }
+  }, 1000/30);
 
   //checks if character is dead
   function isDead() {
@@ -136,7 +147,7 @@ window.addEventListener('DOMContentLoaded', () => {
       $('.countdown').toggleClass('hidden');
       if(!gameRunning) {
         gameRunning = true;
-        controlChar();
+        // controlChar();
         moveColumns();
         isDead();
       }

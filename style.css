@@ -36,9 +36,9 @@ img {
   position: relative;
   background-color: grey;
   overflow: hidden;
-  height: 650px;
+  height: 700px;
   background-image: url('images/3.jpg');
-  background-size: auto 650px;
+  background-size: auto 900px;
   background-repeat: no-repeat;
 }
 
