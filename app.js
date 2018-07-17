@@ -99,18 +99,15 @@ window.addEventListener('DOMContentLoaded', () => {
 
       if ((box.style.top <= topColArr[index].style.height || parseInt(charBottom) >= bottomColArr[index].offsetTop)
       && (charRight >= topColArr[index].style.left && charLeft <= divRight)) {
-        // alert('Collision!');
         console.log('collision!!!');
         // gameRunning = false;
         return;
-
       } else if ((parseInt(divRight) + 85) < charLeft){
         console.log('crossed');
         index = index + 1;
         scoreDiv.textContent = index;
         return false;
       }
-
     }, 100);
   }
 
@@ -123,18 +120,14 @@ window.addEventListener('DOMContentLoaded', () => {
   function startScreen() {
     $('.start-screen').toggleClass('hidden');
     $('.game-container').toggleClass('hidden');
-    $(window).keypress(function(e) {
 
-      if(!gameRunning) {
-        if(e.which === 32) {
-          gameRunning = true;
-          startGame();
-          moveColumns();
-          isDead();
-        }
-      }
+    if(!gameRunning) {
+      gameRunning = true;
+      startGame();
+      moveColumns();
+      isDead();
 
-    });
+    }
   }
 
 
