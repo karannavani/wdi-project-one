@@ -36,3 +36,10 @@ img {
 .hidden {
   visibility: hidden;
 }
+
+.score {
+  color: white;
+  margin: auto;
+  background-color: red;
+  position: absolute;
+}

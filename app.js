@@ -13,8 +13,6 @@ window.addEventListener('DOMContentLoaded', () => {
   const charLeft = box.offsetLeft;
   const charRight = parseInt(charLeft) + 70 + 'px';
   box.style.top = (parseInt(charTop)) + 'px';
-  // let right = 100;
-  // let bottom = 0;
 
   //generate random heights for columns
   function heightGenerator() {
@@ -92,22 +90,29 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   function isDead() {
+    let index = 0;
     setInterval(function(){
       topColArr = document.querySelectorAll('.topColumn');
-      let index = 0;
       const divRight = parseInt(topColArr[index].style.left + 100 + 'px');
-      let keyCol = topColArr[index];
+      // let keyCol = topColArr[index];
       const charBottom = parseInt(box.style.top) + 70 + 'px';
-      // console.log(charRight, topColArr[0].style.left, charRight >= topColArr[0].style.left);
-      // console.log(charLeft, divRight, charLeft <= divRight);
-      // console.log(charBottom, bottomColArr[0].style.height, charBottom >= bottomColArr[0].style.top);
-      // console.log(charRight >= topColArr[0].style.left && charLeft <= divRight);
-      if ((box.style.top <= topColArr[0].style.height || parseInt(charBottom) >= bottomColArr[0].offsetTop)
-      &&
-      (charRight >= topColArr[0].style.left && charLeft <= divRight)) {
+      // console.log(index);
+      // console.log(parseInt(box.style.top), parseInt(topColArr[index].style.height), parseInt(charBottom), parseInt(bottomColArr[index].offsetTop));
+      // console.log(parseInt(box.style.top) <= parseInt(topColArr[index].style.height)|| parseInt(charBottom) >= parseInt(bottomColArr[index].offsetTop)
+      // &&
+      // (charRight >= topColArr[index].style.left && charLeft <= divRight));
+
+      if ((box.style.top <= topColArr[index].style.height || parseInt(charBottom) >= bottomColArr[index].offsetTop)
+      && (charRight >= topColArr[index].style.left && charLeft <= divRight)) {
+
         console.log('collision!!!');
-        // index++;
-        // keyCol = topColArr[index];
+        gameRunning = false;
+        return;
+
+      } else if ((parseInt(divRight) + 85) < charLeft){
+        console.log('crossed');
+        index = index + 1;
+        return false;
       }
       // console.log(charRight, topColArr[0].style.left, charRight <= topColArr[0].style.left);
       // console.log(box.offsetLeft, divRight, box.offsetLeft <= divRight);
