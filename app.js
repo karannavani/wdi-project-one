@@ -15,6 +15,21 @@ window.addEventListener('DOMContentLoaded', () => {
   let speed = 250;
   let collision = false;
 
+  //scoreBoard stuff
+  // *******************************************
+  const scoreBoard = document.getElementById('highscores');
+  const highScores = [];
+
+  localStorage.setItem('scores', JSON.stringify(highScores));
+  const data = JSON.parse(localStorage.getItem('scores'));
+
+  e.preventDefault();
+
+  itemsArray.push(input.value);
+  localStorage.setItem('items', JSON.stringify(itemsArray));
+  // *******************************************
+
+
   //generate random heights for columns
   function heightGenerator() {
     randomTop = Math.floor(Math.random()*600);
@@ -69,7 +84,7 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     }, 25);
   }
-  
+
   //gravity
   let yVelocity = 0;
   let yPos = 280;

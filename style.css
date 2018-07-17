@@ -86,3 +86,19 @@ img {
   background-color: black;
   color: white;
 }
+
+.end-screen {
+  font-family: 'Geostar Fill', cursive;
+  color: white;
+  background-color: grey;
+}
+
+input {
+  display: block;
+}
+
+button {
+  width: 60px;
+  height: 20px;
+  background-color: white;
+}
