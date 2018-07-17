@@ -13,6 +13,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const charRight = parseInt(charLeft) + 60 + 'px';
   box.style.top = (parseInt(charTop)) + 'px';
   let speed = 250;
+  let collision = false;
 
   //generate random heights for columns
   function heightGenerator() {
@@ -25,8 +26,6 @@ window.addEventListener('DOMContentLoaded', () => {
       heightGenerator();
     }
   }
-
-
 
   //generates left gap for each newly generated column
   function leftGenerator() {
@@ -42,8 +41,7 @@ window.addEventListener('DOMContentLoaded', () => {
   //generates columns and appends them to 'columns' class
   function generateColumns() {
 
-    const columnInterval =  window.setInterval(()=> {
-
+    const colGenInterval = window.setInterval(()=> {
       heightGenerator();
       $('<div>').addClass('topColumn column hidden').css({backgroundColor: '#85144b', height: randomTop, width: 100, position: 'absolute', top: 0 }).appendTo('.columns');
       $('<div>').addClass('bottomColumn column hidden').css({backgroundColor: '#85144b', height: randomBottom, width: 100, position: 'absolute', bottom: 0 }).appendTo('.columns');
@@ -52,46 +50,52 @@ window.addEventListener('DOMContentLoaded', () => {
       columnArr = document.querySelectorAll('.column');
       topColCheck++;
       leftGenerator();
-    }, speed);
 
-    // $(window).click(function() {
-    //   clearInterval(columnInterval);
-    //   moveColumns();
-    //
-    // });
+      if (collision) {
+        clearInterval(colGenInterval);
+      }
+    }, speed);
   }
+
   //moves the columns from right to left
   function moveColumns() {
-    window.setInterval(() => {
+    const moveInterval =   window.setInterval(() => {
       columnArr = document.querySelectorAll('.column');
       columnArr.forEach(function(item) {
         item.style.left = parseInt(item.style.left) - 5 + 'px';
       });
+      if (collision) {
+        clearInterval(moveInterval);
+      }
     }, 25);
   }
 
+  //controls the character jump
   function controlChar() {
     $(window).keypress(function(e) {
       if(e.which === 32) {
-        charTop = charTop - 35;
+        charTop = charTop - 40;
         box.style.top = (parseInt(charTop)) + 'px';
       }
     });
 
-
     setInterval(function(){
-      charTop += 12;
-      box.style.top = (parseInt(charTop)) + 'px';
-    },100);
+      const charBottom = parseInt(box.style.top) + 55;
+      if(charBottom < 634) {
+
+        charTop += 8;
+        box.style.top = (parseInt(charTop)) + 'px';
+      }
+    },50);
 
   }
 
+  //checks if character is dead
   function isDead() {
     let index = 0;
     const scoreDiv = document.querySelector('.score');
     scoreDiv.textContent = index;
-    setInterval(function(){
-      console.log(speed);
+    const collisionInterval = setInterval(function(){
       topColArr = document.querySelectorAll('.topColumn');
       const divRight = parseInt(topColArr[index].style.left + 100 + 'px');
 
@@ -100,10 +104,13 @@ window.addEventListener('DOMContentLoaded', () => {
       if ((box.style.top <= topColArr[index].style.height || parseInt(charBottom) >= bottomColArr[index].offsetTop)
       && (charRight >= topColArr[index].style.left && charLeft <= divRight)) {
         console.log('collision!!!');
-        // gameRunning = false;
+        box.style.transform = 'rotate(70deg)';
+        collision = true;
+        clearInterval(collisionInterval);
+
         return;
       } else if ((parseInt(divRight) + 85) < charLeft){
-        console.log('crossed');
+        // console.log('crossed');
         index = index + 1;
         scoreDiv.textContent = index;
         return false;
@@ -111,12 +118,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }, 100);
   }
 
-
-  function startGame() {
-    controlChar();
-
-  }
-
+  //controls all functions from start screen
   function startScreen() {
     $('.start-screen').toggleClass('hidden');
     $('.game-container').toggleClass('hidden');
@@ -134,7 +136,7 @@ window.addEventListener('DOMContentLoaded', () => {
       $('.countdown').toggleClass('hidden');
       if(!gameRunning) {
         gameRunning = true;
-        startGame();
+        controlChar();
         moveColumns();
         isDead();
       }
