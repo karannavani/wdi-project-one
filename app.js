@@ -105,7 +105,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (topColArr.length === topColCheck ) {
       topColArr[topColCheck-1].style.left = left0  + 'px';
       bottomColArr[topColCheck-1].style.left = left0 + 'px';
-      left0 = left0 + 290;
+      left0 = left0 + 300;
       topColArr[topColCheck-1].classList.toggle('hidden');
       bottomColArr[topColCheck-1].classList.toggle('hidden');
     }
@@ -137,7 +137,7 @@ window.addEventListener('DOMContentLoaded', () => {
       columnArr.forEach(function(item) {
         item.style.left = parseInt(item.style.left) - 5 + 'px';
       });
-      if (collision) {
+      if (selection === 'single' && collision) {
         clearInterval(moveInterval);
       }
     }, columnSpeed);
@@ -177,12 +177,10 @@ window.addEventListener('DOMContentLoaded', () => {
         if (event.location === KeyboardEvent.DOM_KEY_LOCATION_LEFT) {
           event.preventDefault();
           yVelocity = 10;
-          console.log('hi');
         }
         if (event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
           event.preventDefault();
           yVelocity2 = 10;
-          console.log('hello');
         }
       });
     }
@@ -227,9 +225,11 @@ window.addEventListener('DOMContentLoaded', () => {
         // console.log('collision!!!');
         box.style.transform = 'rotate(70deg)';
         collision = true;
-        clearInterval(collisionInterval);
+        if (selection === 'single') {
+          clearInterval(collisionInterval);
+          $('.end-screen').toggleClass('hidden');
+        }
         scoreSpan.innerHTML = index;
-        $('.end-screen').toggleClass('hidden');
 
         return;
       } else if ((parseInt(divRight) + 65) < charLeft){
