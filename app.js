@@ -228,6 +228,12 @@ window.addEventListener('DOMContentLoaded', () => {
         if (selection === 'single') {
           clearInterval(collisionInterval);
           $('.end-screen').toggleClass('hidden');
+        } else {
+          setTimeout(function() {
+            $('.box').toggleClass('hidden');
+
+            $('.box').remove();
+          },1600);
         }
         scoreSpan.innerHTML = index;
 
