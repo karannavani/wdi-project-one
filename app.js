@@ -24,6 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
   let moveInterval;
   const scoreSpan = document.querySelector('#score-holder');
   const resetButton = document.querySelector('#reset-button');
+  let gravityInterval;
 
   //scoreBoard stuff
   // *******************************************
@@ -157,12 +158,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
   });
 
-  setInterval( function(){
-    if(gameRunning) {
-      calculateY();
-      drawCharacter();
-    }
-  }, 1000/30);
+  function dropChar() {
+    gravityInterval = setInterval( function(){
+      if(gameRunning) {
+        calculateY();
+        drawCharacter();
+      }
+    }, 1000/30);
+  }
 
   //checks if character is dead
   function isDead() {
@@ -174,7 +177,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const divRight = parseInt(topColArr[index].style.left + 100 + 'px');
 
       const charBottom = parseInt(box.style.top) + 68 + 'px';
-      console.log(box.style.top);
+      // console.log(box.style.top);
 
       if ((box.style.top <= topColArr[index].style.height || parseInt(charBottom) >= bottomColArr[index].offsetTop)
       && (charRight >= topColArr[index].style.left && charLeft <= divRight)) {
@@ -186,7 +189,7 @@ window.addEventListener('DOMContentLoaded', () => {
         $('.end-screen').toggleClass('hidden');
 
         return;
-      } else if ((parseInt(divRight) + 85) < charLeft){
+      } else if ((parseInt(divRight) + 65) < charLeft){
         // console.log('crossed');
         index = index + 1;
         scoreDiv.textContent = index;
@@ -238,9 +241,8 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   function startCountdown() {
+
     const countdownInterval = setInterval(function() {
-      console.log(time);
-      console.log();
       countdownDiv.html(time);
       time = time - 1;
     },1000);
@@ -250,32 +252,38 @@ window.addEventListener('DOMContentLoaded', () => {
       $('.countdown').toggleClass('hidden');
       if(!gameRunning) {
         gameRunning = true;
-        // controlChar();
+
         moveColumns();
+        dropChar();
         isDead();
       }
     }, 3000);
   }
 
   function resetGame() {
-    // gameRunning = false;
+    gameRunning = false;
     topColCheck = 0;
     left0 = 500;
     index = 0;
-    time = 2;
     box.style.top = 280 + 'px';
     speed = 250;
     columnSpeed = 25;
     collision = false;
     yVelocity = 0;
     yPos = 280;
-
+    box.style.transform = 'rotate(0deg)';
+    time = 2;
+    clearInterval(gravityInterval);
     $('.columns').empty();
     $('.end-screen').toggleClass('hidden');
     generateColumns(randomTop,randomBottom);
     //maybe speed needs to change before columns are generated
     speed = 1500;
+    $('.countdown').html(3);
+    $('.countdown').toggleClass('hidden');
+    $('.score').html(0);
     startCountdown();
+    console.log(time);
   }
 
   // listens for the enter key and then starts the game
