@@ -126,7 +126,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   //moves the columns from right to left
   function moveColumns() {
-    moveInterval =   window.setInterval(() => {
+    moveInterval = window.setInterval(() => {
       columnArr = document.querySelectorAll('.column');
       columnArr.forEach(function(item) {
         item.style.left = parseInt(item.style.left) - 5 + 'px';
@@ -155,7 +155,6 @@ window.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       yVelocity = 10;
     }
-
   });
 
   function dropChar() {
@@ -193,10 +192,14 @@ window.addEventListener('DOMContentLoaded', () => {
         // console.log('crossed');
         index = index + 1;
         scoreDiv.textContent = index;
-        // columnSpeed = 20;
-        // clearInterval(moveInterval);
-        // moveColumns();
+        console.log(columnArr);
 
+        // if (parseInt(divRight) < 200) {
+        //   console.log(divRight);
+        //   document.querySelectorAll('.columns').removeChild(index);
+        //   // columnArr.splice(index,1);
+        // }
+        // speed toggle
         switch (index) {
           case 10:
             columnSpeed = 20;
