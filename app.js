@@ -14,7 +14,9 @@ window.addEventListener('DOMContentLoaded', () => {
   const charRight = parseInt(charLeft) + 60 + 'px';
   box.style.top = 280 + 'px';
   let speed = 250;
+  let columnSpeed = 25;
   let collision = false;
+  let moveInterval;
   const scoreSpan = document.querySelector('#score-holder');
 
   //scoreBoard stuff
@@ -30,7 +32,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const highScoreElements = (score) => {
     const li = document.createElement('li');
-    // li.textContent = text;
     li.textContent = `${score.name} - ${score.value}`;
     ul.appendChild(li);
   };
@@ -42,10 +43,12 @@ window.addEventListener('DOMContentLoaded', () => {
     highScores.push(score);
     localStorage.setItem('scores', JSON.stringify(highScores));
     input.value = '';
-    showHighScores();
+    generateHighScoreTable();
   });
 
   function generateHighScoreTable() {
+    ul.innerHTML = '';
+
     highScores.sort(function (a, b) {
       return b.value - a.value;
     });
@@ -53,14 +56,6 @@ window.addEventListener('DOMContentLoaded', () => {
       highScoreElements(score);
     });
   }
-
-
-  // let scores;
-  // if (localStorage.getItem('scores')) {
-  //   scores = JSON.parse(localStorage.getItem('scores'));
-  // } else {
-  //   scores = [];
-  // }
 
   clearHighScores.addEventListener('click', function () {
     localStorage.clear();
@@ -70,30 +65,13 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   viewScore.addEventListener('click', function () {
-    // showHighScores();
+    // generateHighScoreTable();
     $('.game-container').toggleClass('hidden');
     $('.start-screen').toggleClass('hidden');
   });
 
-  function showHighScores() {
-    generateHighScoreTable();
-
-    // $('.score-board').toggleClass('hidden');
-  }
 
 
-
-
-  // const scoreBoard = document.getElementById('highscores');
-  // const highScores = [];
-  //
-  // localStorage.setItem('scores', JSON.stringify(highScores));
-  // const data = JSON.parse(localStorage.getItem('scores'));
-  //
-  // event.preventDefault();
-  //
-  // highScores.push(input.value);
-  // localStorage.setItem('items', JSON.stringify(highScores));
   // // *******************************************
 
 
@@ -141,7 +119,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   //moves the columns from right to left
   function moveColumns() {
-    const moveInterval =   window.setInterval(() => {
+    moveInterval =   window.setInterval(() => {
       columnArr = document.querySelectorAll('.column');
       columnArr.forEach(function(item) {
         item.style.left = parseInt(item.style.left) - 5 + 'px';
@@ -149,7 +127,7 @@ window.addEventListener('DOMContentLoaded', () => {
       if (collision) {
         clearInterval(moveInterval);
       }
-    }, 25);
+    }, columnSpeed);
   }
 
   //gravity
@@ -192,7 +170,8 @@ window.addEventListener('DOMContentLoaded', () => {
       topColArr = document.querySelectorAll('.topColumn');
       const divRight = parseInt(topColArr[index].style.left + 100 + 'px');
 
-      const charBottom = parseInt(box.style.top) + 60 + 'px';
+      const charBottom = parseInt(box.style.top) + 68 + 'px';
+      console.log(box.style.top);
 
       if ((box.style.top <= topColArr[index].style.height || parseInt(charBottom) >= bottomColArr[index].offsetTop)
       && (charRight >= topColArr[index].style.left && charLeft <= divRight)) {
@@ -208,9 +187,42 @@ window.addEventListener('DOMContentLoaded', () => {
         // console.log('crossed');
         index = index + 1;
         scoreDiv.textContent = index;
+        // columnSpeed = 20;
+        // clearInterval(moveInterval);
+        // moveColumns();
+
+        switch (index) {
+          case 10:
+            columnSpeed = 20;
+            clearInterval(moveInterval);
+            moveColumns();
+            break;
+          case 20: // foo is 0 so criteria met here so this block will run
+            columnSpeed = 17;
+            clearInterval(moveInterval);
+            moveColumns();
+            break;
+          case 30: // foo is 0 so criteria met here so this block will run
+            columnSpeed = 14;
+            clearInterval(moveInterval);
+            moveColumns();
+            break;
+          case 50: // foo is 0 so criteria met here so this block will run
+            columnSpeed = 11;
+            clearInterval(moveInterval);
+            moveColumns();
+            break;
+          case 70: // foo is 0 so criteria met here so this block will run
+            columnSpeed = 9;
+            clearInterval(moveInterval);
+            moveColumns();
+            break;
+          default:
+            columnSpeed = 25;
+        }
         return false;
       }
-    }, 100);
+    }, 50);
   }
 
   //controls all functions from start screen
@@ -240,7 +252,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // listens for the enter key and then starts the game
   if(!gameRunning) {
-    showHighScores();
+    generateHighScoreTable();
     generateColumns(randomTop,randomBottom);
     $(window).keypress(function(e) {
       if(e.which === 13) {
