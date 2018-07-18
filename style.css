@@ -28,10 +28,6 @@ img {
   height: inherit;
 }
 
-.column {
-  /*transition: all 0.1s ease;*/
-}
-
 .game-container {
   position: relative;
   background-color: grey;
@@ -85,15 +81,21 @@ img {
   position: absolute;
   background-color: black;
   color: white;
+  letter-spacing: 0.1em;
 }
 
-.end-screen {
+.score-board {
   font-family: 'Geostar Fill', cursive;
   color: white;
   background-color: grey;
+  margin: 0 auto;
+  position: absolute;
+  height: 600px;
+  width: 100%;
+  text-align: center;
 }
 
-input {
+/*input {
   display: block;
 }
 
@@ -101,4 +103,41 @@ button {
   width: 60px;
   height: 20px;
   background-color: white;
+}*/
+
+.end-screen {
+  font-family: 'Geostar Fill', cursive;
+  letter-spacing: 0.3em;
+  text-align: center;
+  padding: 10px;
+  margin: 0 auto;
+  margin-top: 100px;
+  height: 350px;
+  width: 350px;
+  background-color: rgba(255, 220, 0, 0.93);
+  position: absolute;
+  z-index: 100;
+  left: 500px;
+}
+
+#score-holder {
+  font-size: 40px;
+}
+
+form {
+  padding-top: 30px;
+}
+
+input {
+  width: 200px;
+  height: 20px;
+}
+
+.game-over {
+  font-family: 'Geostar Fill', cursive;
+  letter-spacing: 0.2em;
+  font-size: 22px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 30px;
 }

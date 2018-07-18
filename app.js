@@ -14,20 +14,21 @@ window.addEventListener('DOMContentLoaded', () => {
   box.style.top = 280 + 'px';
   let speed = 250;
   let collision = false;
+  let scoreSpan = document.querySelector('#score-holder');
 
   //scoreBoard stuff
   // *******************************************
-  const scoreBoard = document.getElementById('highscores');
-  const highScores = [];
-
-  localStorage.setItem('scores', JSON.stringify(highScores));
-  const data = JSON.parse(localStorage.getItem('scores'));
-
-  e.preventDefault();
-
-  itemsArray.push(input.value);
-  localStorage.setItem('items', JSON.stringify(itemsArray));
-  // *******************************************
+  // const scoreBoard = document.getElementById('highscores');
+  // const highScores = [];
+  //
+  // localStorage.setItem('scores', JSON.stringify(highScores));
+  // const data = JSON.parse(localStorage.getItem('scores'));
+  //
+  // event.preventDefault();
+  //
+  // itemsArray.push(input.value);
+  // localStorage.setItem('items', JSON.stringify(itemsArray));
+  // // *******************************************
 
 
   //generate random heights for columns
@@ -47,7 +48,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (topColArr.length === topColCheck ) {
       topColArr[topColCheck-1].style.left = left0  + 'px';
       bottomColArr[topColCheck-1].style.left = left0 + 'px';
-      left0 = left0 + 325;
+      left0 = left0 + 290;
       topColArr[topColCheck-1].classList.toggle('hidden');
       bottomColArr[topColCheck-1].classList.toggle('hidden');
     }
@@ -88,7 +89,7 @@ window.addEventListener('DOMContentLoaded', () => {
   //gravity
   let yVelocity = 0;
   let yPos = 280;
-  const gravity = 0.5;
+  const gravity = 0.8;
 
   function calculateY() {
     if(yPos < 620) {
@@ -104,7 +105,7 @@ window.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('keydown', e => {
     if (e.which === 32) {
       e.preventDefault();
-      yVelocity = 5;
+      yVelocity = 10;
     }
 
   });
@@ -133,6 +134,8 @@ window.addEventListener('DOMContentLoaded', () => {
         box.style.transform = 'rotate(70deg)';
         collision = true;
         clearInterval(collisionInterval);
+        scoreSpan.innerHTML = index;
+        $('.end-screen').toggleClass('hidden');
 
         return;
       } else if ((parseInt(divRight) + 85) < charLeft){

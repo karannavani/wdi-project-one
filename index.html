@@ -9,18 +9,26 @@
   <title></title>
 </head>
 <body>
-  <!-- <div class="start-screen">Click Enter to begin</div> -->
-  <div class="end-screen">
+  <!-- <div class="start-screen">Press Enter to begin </br></br> Use Space to control Solo</div> -->
+  <div class="score-board">
   <h1>Score board</h1>
   <table id="highscores">
-<form>
-  <input id="item" type="text" placeholder="New">
-  <button type="submit" name="button">Submit</button>
-</form>
     <tr><td>Name</td><td>Score</td></tr>
 </table>
   </div>
+
+
   <div class="game-container hidden">
+    <div class="end-screen hidden">
+      <h1>YOUR SCORE</h1>
+      <span id='score-holder'>0</span>
+      <form>
+        <input id="score" type="text" placeholder="Enter name">
+        <button type="submit" name="button">Submit</button>
+      </form>
+      <button type="button" class="game-over" name="button">View Highscores</button>
+      <button type="button" class="game-over" name="button">Restart</button>
+    </div>
     <div class="columns">
     </div>
     <div class="countdown">3</div>
