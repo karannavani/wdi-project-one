@@ -90,7 +90,7 @@ window.addEventListener('DOMContentLoaded', () => {
     randomTop = Math.floor(Math.random()*600);
     randomBottom = Math.floor(Math.random()*600);
 
-    if (randomBottom > 150 && randomTop > 150 && (randomTop + randomBottom) > 500 && (randomTop + randomBottom) < 520) {
+    if (randomBottom > 100 && randomTop > 100 && (randomTop + randomBottom) > 500 && (randomTop + randomBottom) < 520) {
       return;
     } else {
       heightGenerator();
@@ -205,27 +205,32 @@ window.addEventListener('DOMContentLoaded', () => {
         // speed toggle
         switch (index) {
           case 10:
-            columnSpeed = 20;
+            columnSpeed = 22;
             clearInterval(moveInterval);
             moveColumns();
             break;
           case 20: // foo is 0 so criteria met here so this block will run
-            columnSpeed = 17;
+            columnSpeed = 19;
             clearInterval(moveInterval);
             moveColumns();
             break;
           case 30: // foo is 0 so criteria met here so this block will run
-            columnSpeed = 14;
+            columnSpeed = 16;
             clearInterval(moveInterval);
             moveColumns();
             break;
           case 50: // foo is 0 so criteria met here so this block will run
-            columnSpeed = 11;
+            columnSpeed = 13;
             clearInterval(moveInterval);
             moveColumns();
             break;
           case 70: // foo is 0 so criteria met here so this block will run
-            columnSpeed = 9;
+            columnSpeed = 10;
+            clearInterval(moveInterval);
+            moveColumns();
+            break;
+          case 95: // foo is 0 so criteria met here so this block will run
+            columnSpeed = 7;
             clearInterval(moveInterval);
             moveColumns();
             break;
