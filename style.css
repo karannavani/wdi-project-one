@@ -32,6 +32,7 @@ img {
   position: relative;
   background-color: grey;
   overflow: hidden;
+  /*height: 700px;*/
   height: 700px;
   background-image: url('images/3.jpg');
   background-size: auto 900px;
@@ -90,7 +91,7 @@ img {
   background-color: grey;
   margin: 0 auto;
   position: absolute;
-  height: 600px;
+  height: 100%;
   width: 100%;
   text-align: center;
 }
@@ -140,4 +141,14 @@ input {
   display: block;
   margin: 0 auto;
   margin-top: 30px;
+}
+
+li {
+  letter-spacing: 0.2em;
+  font-size: 28px;
+  list-style:none;
+}
+
+#clear-storage {
+  margin-top: 60px;
 }

@@ -14,10 +14,60 @@ window.addEventListener('DOMContentLoaded', () => {
   box.style.top = 280 + 'px';
   let speed = 250;
   let collision = false;
-  let scoreSpan = document.querySelector('#score-holder');
+  const scoreSpan = document.querySelector('#score-holder');
 
   //scoreBoard stuff
   // *******************************************
+  const form = document.querySelector('form');
+  const ul = document.querySelector('ul');
+  const button = document.querySelector('#clear-storage');
+  const input = document.getElementById('score');
+  let itemsArray = localStorage.getItem('scores') ? JSON.parse(localStorage.getItem('scores')) : [];
+  localStorage.setItem('scores', JSON.stringify(itemsArray));
+  const data = JSON.parse(localStorage.getItem('scores'));
+
+  // const liMaker = () => {
+  //   const li = document.createElement('li');
+  //   li.textContent = `Kane - ${44}`;
+  //   ul.appendChild(li);
+  // };
+  const liMaker = (text) => {
+    const li = document.createElement('li');
+    li.textContent = `${text} - ${scoreSpan.innerHTML}`;
+    ul.appendChild(li);
+  };
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    itemsArray.push(input.value);
+    localStorage.setItem('scores', JSON.stringify(itemsArray));
+    liMaker(input.value);
+    input.value = '';
+
+  });
+
+  data.forEach(score => {
+    liMaker(score);
+  });
+
+
+  button.addEventListener('click', function () {
+    localStorage.clear();
+    while (ul.firstChild) {
+      ul.removeChild(ul.firstChild);
+    }
+  });
+
+
+  let scores;
+
+  if (localStorage.getItem('scores')) {
+    scores = JSON.parse(localStorage.getItem('scores'));
+  } else {
+    scores = [];
+  }
+
   // const scoreBoard = document.getElementById('highscores');
   // const highScores = [];
   //
