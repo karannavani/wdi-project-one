@@ -25,6 +25,9 @@ window.addEventListener('DOMContentLoaded', () => {
   const scoreSpan = document.querySelector('#score-holder');
   const resetButton = document.querySelector('#reset-button');
   let gravityInterval;
+  //multiplayer stuff
+  const singlePlayer = document.querySelector('#single');
+  const multiPlayer = document.querySelector('#multi');
 
   //scoreBoard stuff
   // *******************************************
@@ -180,7 +183,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
       if ((box.style.top <= topColArr[index].style.height || parseInt(charBottom) >= bottomColArr[index].offsetTop)
       && (charRight >= topColArr[index].style.left && charLeft <= divRight)) {
-        console.log('collision!!!');
+        // console.log('collision!!!');
         box.style.transform = 'rotate(70deg)';
         collision = true;
         clearInterval(collisionInterval);
@@ -192,7 +195,7 @@ window.addEventListener('DOMContentLoaded', () => {
         // console.log('crossed');
         index = index + 1;
         scoreDiv.textContent = index;
-        console.log(columnArr);
+        // console.log(columnArr);
 
         // if (parseInt(divRight) < 200) {
         //   console.log(divRight);
@@ -286,20 +289,33 @@ window.addEventListener('DOMContentLoaded', () => {
     $('.countdown').toggleClass('hidden');
     $('.score').html(0);
     startCountdown();
-    console.log(time);
   }
 
   // listens for the enter key and then starts the game
   if(!gameRunning) {
     generateHighScoreTable();
     generateColumns(randomTop,randomBottom);
-    $(window).keypress(function(e) {
-      if(e.which === 13) {
+
+
+    $(window).click(function(e) {
+      if (e.target === singlePlayer) {
+        startScreen();
+        speed = 1500;
+        return true;
+      } else if (e.target === multiPlayer) {
+        $('.player2').toggleClass('hidden');
         startScreen();
         speed = 1500;
         return true;
       }
     });
+    // $(window).keypress(function(e) {
+    //   if(e.which === 13) {
+    //     startScreen();
+    //     speed = 1500;
+    //     return true;
+    //   }
+    // });
   }
 
   resetButton.addEventListener('click', function () {
