@@ -8,6 +8,7 @@ window.addEventListener('DOMContentLoaded', () => {
   let randomBottom;
   let topColCheck = 0;
   let left0 = 500;
+  let index = 0;
   // let charTop = 280;
   const charLeft = box.offsetLeft;
   const charRight = parseInt(charLeft) + 60 + 'px';
@@ -18,55 +19,70 @@ window.addEventListener('DOMContentLoaded', () => {
 
   //scoreBoard stuff
   // *******************************************
-  const form = document.querySelector('form');
+  const highScoreForm = document.querySelector('form');
   const ul = document.querySelector('ul');
-  const button = document.querySelector('#clear-storage');
+  const clearHighScores = document.querySelector('#clear-storage');
   const input = document.getElementById('score');
-  let itemsArray = localStorage.getItem('scores') ? JSON.parse(localStorage.getItem('scores')) : [];
-  localStorage.setItem('scores', JSON.stringify(itemsArray));
-  const data = JSON.parse(localStorage.getItem('scores'));
+  const highScores = localStorage.getItem('scores') ? JSON.parse(localStorage.getItem('scores')) : [];
+  // localStorage.setItem('scores', JSON.stringify(itemsArray));
+  // const data = JSON.parse(localStorage.getItem('scores'));
+  const viewScore = document.querySelector('#view-score');
 
-  // const liMaker = () => {
-  //   const li = document.createElement('li');
-  //   li.textContent = `Kane - ${44}`;
-  //   ul.appendChild(li);
-  // };
-  const liMaker = (text) => {
+  const highScoreElements = (score) => {
     const li = document.createElement('li');
-    li.textContent = `${text} - ${scoreSpan.innerHTML}`;
+    // li.textContent = text;
+    li.textContent = `${score.name} - ${score.value}`;
     ul.appendChild(li);
   };
 
-  form.addEventListener('submit', function (e) {
+  highScoreForm.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    itemsArray.push(input.value);
-    localStorage.setItem('scores', JSON.stringify(itemsArray));
-    liMaker(input.value);
+    const score = { name: input.value, value: index };
+    highScores.push(score);
+    localStorage.setItem('scores', JSON.stringify(highScores));
     input.value = '';
-
+    showHighScores();
   });
 
-  data.forEach(score => {
-    liMaker(score);
-  });
+  function generateHighScoreTable() {
+    highScores.sort(function (a, b) {
+      return b.value - a.value;
+    });
+    highScores.forEach(score => {
+      highScoreElements(score);
+    });
+  }
 
 
-  button.addEventListener('click', function () {
+  // let scores;
+  // if (localStorage.getItem('scores')) {
+  //   scores = JSON.parse(localStorage.getItem('scores'));
+  // } else {
+  //   scores = [];
+  // }
+
+  clearHighScores.addEventListener('click', function () {
     localStorage.clear();
     while (ul.firstChild) {
       ul.removeChild(ul.firstChild);
     }
   });
 
+  viewScore.addEventListener('click', function () {
+    // showHighScores();
+    $('.game-container').toggleClass('hidden');
+    $('.start-screen').toggleClass('hidden');
+  });
 
-  let scores;
+  function showHighScores() {
+    generateHighScoreTable();
 
-  if (localStorage.getItem('scores')) {
-    scores = JSON.parse(localStorage.getItem('scores'));
-  } else {
-    scores = [];
+    // $('.score-board').toggleClass('hidden');
   }
+
+
+
 
   // const scoreBoard = document.getElementById('highscores');
   // const highScores = [];
@@ -76,8 +92,8 @@ window.addEventListener('DOMContentLoaded', () => {
   //
   // event.preventDefault();
   //
-  // itemsArray.push(input.value);
-  // localStorage.setItem('items', JSON.stringify(itemsArray));
+  // highScores.push(input.value);
+  // localStorage.setItem('items', JSON.stringify(highScores));
   // // *******************************************
 
 
@@ -169,7 +185,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   //checks if character is dead
   function isDead() {
-    let index = 0;
+    index = 0;
     const scoreDiv = document.querySelector('.score');
     scoreDiv.textContent = index;
     const collisionInterval = setInterval(function(){
@@ -224,6 +240,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // listens for the enter key and then starts the game
   if(!gameRunning) {
+    showHighScores();
     generateColumns(randomTop,randomBottom);
     $(window).keypress(function(e) {
       if(e.which === 13) {

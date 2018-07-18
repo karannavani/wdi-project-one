@@ -7,10 +7,10 @@ body {
 }
 
 .box {
-  height: 55px;
+  height: 65px;
   left: 200px;
   position: absolute;
-  width: 55px;
+  width: 60px;
   border-radius: 100%;
   /*background-color: white;*/
   transition: top 0.08s ease;
@@ -86,14 +86,15 @@ img {
 }
 
 .score-board {
+  font-size: 20px;
   font-family: 'Geostar Fill', cursive;
   color: white;
   background-color: grey;
-  margin: 0 auto;
   position: absolute;
   height: 100%;
   width: 100%;
-  text-align: center;
+  margin-top: 50px;
+  padding-left: 10px;
 }
 
 /*input {

@@ -9,12 +9,14 @@
   <title></title>
 </head>
 <body>
-  <div class="start-screen">Press Enter to begin </br></br> Use Space to control Solo</div>
-  <div class="score-board hidden">
-    <h1>Score board</h1>
-    <ul></ul>
-    <button type="button" id="clear-storage" name="button">Clear All</button>
+  <div class="start-screen">Press Enter to begin </br></br> Use Space to control Solo
+    <div class="score-board">
+      <h1>Score board</h1>
+      <ul></ul>
+      <button type="button" id="clear-storage" name="button">Clear All</button>
+    </div>
   </div>
+
 
 
   <div class="game-container hidden">
@@ -25,7 +27,7 @@
         <input id="score" type="text" placeholder="Enter name">
         <button type="submit" id="score-submit" name="button">Submit</button>
       </form>
-      <button type="button" class="game-over" name="button">View Highscores</button>
+      <button type="button" class="game-over" id="view-score" name="button">View Highscores</button>
       <button type="button" class="game-over" name="button">Restart</button>
     </div>
     <div class="columns">
