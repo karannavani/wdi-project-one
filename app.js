@@ -1,6 +1,7 @@
 window.addEventListener('DOMContentLoaded', () => {
   let gameRunning = false;
   const box = document.querySelector('.box');
+  const player2 = document.querySelector('.player2');
   let topColArr;
   let bottomColArr;
   let columnArr;
@@ -13,11 +14,11 @@ window.addEventListener('DOMContentLoaded', () => {
   let yVelocity = 0;
   let yPos = 280;
   const gravity = 0.8;
-  // let charTop = 280;
   const charLeft = box.offsetLeft;
   const charRight = parseInt(charLeft) + 60 + 'px';
   const countdownDiv = $('.countdown');
   box.style.top = 280 + 'px';
+  player2.style.top = 280 + 'px';
   let speed = 250;
   let columnSpeed = 25;
   let collision = false;
@@ -28,7 +29,9 @@ window.addEventListener('DOMContentLoaded', () => {
   //multiplayer stuff
   const singlePlayer = document.querySelector('#single');
   const multiPlayer = document.querySelector('#multi');
-
+  let yVelocity2 = 0;
+  let yPos2 = 280;
+  let selection;
   //scoreBoard stuff
   // *******************************************
   const highScoreForm = document.querySelector('form');
@@ -147,18 +150,56 @@ window.addEventListener('DOMContentLoaded', () => {
       yPos -= yVelocity;
       yVelocity -= gravity;
     }
+    //player2
+    if(yPos2 < 620) {
+      yPos2 -= yVelocity2;
+      yVelocity2 -= gravity;
+    }
   }
 
   function drawCharacter() {
     box.style.top = `${parseInt(yPos)}px`;
+    player2.style.top = `${parseInt(yPos2)}px`;
+
+  }
+  function assignKeys() {
+    if (selection === 'single') {
+      console.log(selection);
+      window.addEventListener('keydown', e => {
+        if (e.which === 32) {
+          e.preventDefault();
+          yVelocity = 10;
+        }
+      });
+    } else if (selection === 'multi') {
+      console.log(selection);
+      window.addEventListener('keydown', event => {
+        if (event.location === KeyboardEvent.DOM_KEY_LOCATION_LEFT) {
+          event.preventDefault();
+          yVelocity = 10;
+          console.log('hi');
+        }
+        if (event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
+          event.preventDefault();
+          yVelocity2 = 10;
+          console.log('hello');
+        }
+      });
+    }
+
+    // window.addEventListener('keydown', e => {
+    //   if (e.which === 32) {
+    //     e.preventDefault();
+    //     yVelocity = 10;
+    //     console.log('hi');
+    //   }
+    //   if (e.which === 16) {
+    //     e.preventDefault();
+    //     yVelocity = 10;
+    //     console.log('hi');
+    //   }
   }
 
-  window.addEventListener('keydown', e => {
-    if (e.which === 32) {
-      e.preventDefault();
-      yVelocity = 10;
-    }
-  });
 
   function dropChar() {
     gravityInterval = setInterval( function(){
@@ -178,7 +219,7 @@ window.addEventListener('DOMContentLoaded', () => {
       topColArr = document.querySelectorAll('.topColumn');
       const divRight = parseInt(topColArr[index].style.left + 100 + 'px');
 
-      const charBottom = parseInt(box.style.top) + 68 + 'px';
+      const charBottom = parseInt(box.style.top) + 70 + 'px';
       // console.log(box.style.top);
 
       if ((box.style.top <= topColArr[index].style.height || parseInt(charBottom) >= bottomColArr[index].offsetTop)
@@ -277,12 +318,16 @@ window.addEventListener('DOMContentLoaded', () => {
     left0 = 500;
     index = 0;
     box.style.top = 280 + 'px';
+    player2.style.top = 280 + 'px';
     speed = 250;
     columnSpeed = 25;
     collision = false;
     yVelocity = 0;
     yPos = 280;
+    yVelocity2 = 0;
+    yPos2 = 280;
     box.style.transform = 'rotate(0deg)';
+    player2.style.transform = 'rotate(0deg)';
     time = 2;
     clearInterval(gravityInterval);
     $('.columns').empty();
@@ -304,13 +349,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
     $(window).click(function(e) {
       if (e.target === singlePlayer) {
+        selection = 'single';
         startScreen();
         speed = 1500;
+        assignKeys();
         return true;
       } else if (e.target === multiPlayer) {
+        selection = 'multi';
         $('.player2').toggleClass('hidden');
         startScreen();
         speed = 1500;
+        assignKeys();
         return true;
       }
     });
