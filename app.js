@@ -9,15 +9,21 @@ window.addEventListener('DOMContentLoaded', () => {
   let topColCheck = 0;
   let left0 = 500;
   let index = 0;
+  let time = 2;
+  let yVelocity = 0;
+  let yPos = 280;
+  const gravity = 0.8;
   // let charTop = 280;
   const charLeft = box.offsetLeft;
   const charRight = parseInt(charLeft) + 60 + 'px';
+  const countdownDiv = $('.countdown');
   box.style.top = 280 + 'px';
   let speed = 250;
   let columnSpeed = 25;
   let collision = false;
   let moveInterval;
   const scoreSpan = document.querySelector('#score-holder');
+  const resetButton = document.querySelector('#reset-button');
 
   //scoreBoard stuff
   // *******************************************
@@ -131,9 +137,6 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   //gravity
-  let yVelocity = 0;
-  let yPos = 280;
-  const gravity = 0.8;
 
   function calculateY() {
     if(yPos < 620) {
@@ -229,8 +232,12 @@ window.addEventListener('DOMContentLoaded', () => {
   function startScreen() {
     $('.start-screen').toggleClass('hidden');
     $('.game-container').toggleClass('hidden');
-    const countdownDiv = $('.countdown');
-    let time = 2;
+
+    startCountdown();
+
+  }
+
+  function startCountdown() {
     const countdownInterval = setInterval(function() {
       console.log(time);
       console.log();
@@ -250,6 +257,27 @@ window.addEventListener('DOMContentLoaded', () => {
     }, 3000);
   }
 
+  function resetGame() {
+    // gameRunning = false;
+    topColCheck = 0;
+    left0 = 500;
+    index = 0;
+    time = 2;
+    box.style.top = 280 + 'px';
+    speed = 250;
+    columnSpeed = 25;
+    collision = false;
+    yVelocity = 0;
+    yPos = 280;
+
+    $('.columns').empty();
+    $('.end-screen').toggleClass('hidden');
+    generateColumns(randomTop,randomBottom);
+    //maybe speed needs to change before columns are generated
+    speed = 1500;
+    startCountdown();
+  }
+
   // listens for the enter key and then starts the game
   if(!gameRunning) {
     generateHighScoreTable();
@@ -263,4 +291,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  resetButton.addEventListener('click', function () {
+    resetGame();
+  });
 }); //closes DOM listener
