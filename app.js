@@ -38,37 +38,37 @@ window.addEventListener('DOMContentLoaded', () => {
   let yPos2 = 280;
   let selection;
   //for additional characters
-  const charArray =
-  [
-    {name: 'Han Solo', src: 'images/solo.gif'},
-    {name: 'Chewbacca', src: 'images/chewie.gif'},
-    {name: 'Luke Skywalker', src: 'images/luke.png'},
-    {name: 'Darth Vader', src: 'images/vader.png'},
-    {name: 'Darth Maul', src: 'images/maul.png'},
-    {name: 'Kylo Ren', src: 'images/kylo.png'}
-  ];
-  const charName = document.querySelector('.char-name');
-  const charImage = document.querySelector('.char-image');
-  const previous = document.querySelector('#previous');
-  const next = document.querySelector('#next');
-  let charIndex = 0;
-
-  charName.innerHTML = charArray[0].name;
-  charImage.style.backgroundImage = `url('${charArray[0].src}')`;
-
-  window.addEventListener('click',function(e) {
-    if (e.target === previous) {
-      charIndex--;
-      charName.innerHTML = charArray[charIndex].name;
-      charImage.style.backgroundImage = `url('${charArray[charIndex].src}')`;
-      console.log(charIndex);
-    } else if (e.target === next) {
-      charIndex++;
-      charName.innerHTML = charArray[charIndex].name;
-      charImage.style.backgroundImage = `url('${charArray[charIndex].src}')`;
-      console.log(charIndex);
-    }
-  });
+  // const charArray =
+  // [
+  //   {name: 'Han Solo', src: 'images/solo.gif'},
+  //   {name: 'Chewbacca', src: 'images/chewie.gif'},
+  //   {name: 'Luke Skywalker', src: 'images/luke.png'},
+  //   {name: 'Darth Vader', src: 'images/vader.png'},
+  //   {name: 'Darth Maul', src: 'images/maul.png'},
+  //   {name: 'Kylo Ren', src: 'images/kylo.png'}
+  // ];
+  // const charName = document.querySelector('.char-name');
+  // const charImage = document.querySelector('.char-image');
+  // const previous = document.querySelector('#previous');
+  // const next = document.querySelector('#next');
+  // let charIndex = 0;
+  //
+  // charName.innerHTML = charArray[0].name;
+  // charImage.style.backgroundImage = `url('${charArray[0].src}')`;
+  //
+  // window.addEventListener('click',function(e) {
+  //   if (e.target === previous && charIndex > 0) {
+  //     charIndex--;
+  //     charName.innerHTML = charArray[charIndex].name;
+  //     charImage.style.backgroundImage = `url('${charArray[charIndex].src}')`;
+  //     console.log(charIndex);
+  //   } else if (e.target === next && charIndex < 5) {
+  //     charIndex++;
+  //     charName.innerHTML = charArray[charIndex].name;
+  //     charImage.style.backgroundImage = `url('${charArray[charIndex].src}')`;
+  //     console.log(charIndex);
+  //   }
+  // });
 
   //scoreBoard stuff
   // *******************************************
@@ -208,8 +208,8 @@ window.addEventListener('DOMContentLoaded', () => {
       window.addEventListener('keydown', e => {
         if (e.which === 32) {
           e.preventDefault();
-          $('#oneTime').attr('src','sounds/jump.wav');
-          $('#oneTime')[0].play();
+          // $('#oneTime').attr('src','sounds/jump.wav');
+          // $('#oneTime')[0].play();
           yVelocity = 9;
         }
       });
@@ -218,14 +218,14 @@ window.addEventListener('DOMContentLoaded', () => {
       window.addEventListener('keydown', event => {
         if (event.location === KeyboardEvent.DOM_KEY_LOCATION_LEFT) {
           event.preventDefault();
-          $('#oneTime').attr('src','sounds/jump.wav');
-          $('#oneTime')[0].play();
+          // $('#oneTime').attr('src','sounds/jump.wav');
+          // $('#oneTime')[0].play();
           yVelocity = 9;
         }
         if (event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
           event.preventDefault();
-          $('#oneTime').attr('src','sounds/jump.wav');
-          $('#oneTime')[0].play();
+          // $('#oneTime').attr('src','sounds/jump.wav');
+          // $('#oneTime')[0].play();
           yVelocity2 = 9;
         }
       });
@@ -265,29 +265,34 @@ window.addEventListener('DOMContentLoaded', () => {
     const collisionInterval = setInterval(function(){
       topColArr = document.querySelectorAll('.topColumn');
       const divRight = parseInt(topColArr[index].style.left + 100 + 'px');
-      const charBottom = parseInt(box.style.top) + 70 + 'px';
-      const player2Bottom = parseInt(player2.style.top) + 70 + 'px';
+      const charBottom = parseInt(box.style.top) + 65 + 'px';
+      const player2Bottom = parseInt(player2.style.top) + 60 + 'px';
 
       // console.log(box.style.top);
 
       //player 1 logic
-      if ((box.style.top <= topColArr[index].style.height || parseInt(charBottom) >= bottomColArr[index].offsetTop)
-      && (charRight >= topColArr[index].style.left && charLeft <= divRight)) {
+      if (!collision1) {
 
-        $('#oneTime').attr('src','sounds/dying.wav');
-        $('#oneTime')[0].play();
-        console.log('Player 1 collision!!!');
-        box.style.transform = 'rotate(70deg)';
-        collision1 = true;
-        if (selection === 'single') {
-          clearInterval(collisionInterval);
-          $('.end-screen').toggleClass('hidden');
-          gameRunning = false;
-        } else if (selection === 'multi' && collision1) {
-          setTimeout(function() {
-            $('.box').toggleClass('hidden');
-            // $('.box').remove();
-          },200);
+        if ((box.style.top <= topColArr[index].style.height || parseInt(charBottom) >= bottomColArr[index].offsetTop)
+        && (charRight >= topColArr[index].style.left && charLeft <= divRight)) {
+
+
+          console.log('Player 1 collision!!!');
+          box.style.transform = 'rotate(70deg)';
+          collision1 = true;
+          $('#oneTime').attr('src','sounds/dying.wav');
+          $('#oneTime')[0].play();
+          if (selection === 'single' && !collision1) {
+            clearInterval(collisionInterval);
+            $('.end-screen').toggleClass('hidden');
+            gameRunning = false;
+          } else if (selection === 'multi' && collision1) {
+            setTimeout(function() {
+              collision1 = true;
+              // $('.box').remove();
+              $('.box').toggleClass('hidden');
+            },100);
+          }
         }
 
         scoreSpan.innerHTML = index;
@@ -314,7 +319,7 @@ window.addEventListener('DOMContentLoaded', () => {
           setTimeout(function() {
             $('.player2').toggleClass('hidden');
             // $('.player2').remove();
-          },200);
+          },100);
 
           scoreSpan.innerHTML = index;
           return;
@@ -459,9 +464,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
     $(window).click(function(e) {
-      $('#oneTime').attr('src','sounds/fx4.wav');
-      $('#oneTime')[0].play();
+
       if (e.target === singlePlayer) {
+        $('#oneTime').attr('src','sounds/fx4.wav');
+        $('#oneTime')[0].play();
         selection = 'single';
         startScreen();
         speed = 1500;
@@ -470,6 +476,8 @@ window.addEventListener('DOMContentLoaded', () => {
         $('#backgroundAudio')[0].play();
         return true;
       } else if (e.target === multiPlayer) {
+        $('#oneTime').attr('src','sounds/fx4.wav');
+        $('#oneTime')[0].play();
         selection = 'multi';
         $('.score').css('left','420px');
         $('.score2').toggleClass('hidden');

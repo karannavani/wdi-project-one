@@ -25,7 +25,7 @@ body {
 height: 200px;
 width: auto;
 margin: auto;
-background-size: 100px;
+background-size: 150px;
 background-repeat: no-repeat;
 background-position: center;
 }
@@ -47,25 +47,28 @@ width: 100px;
 margin: auto;
 }*/
 
-img {
+.player {
   height: 70px;
   width: 70px;
   /*position: relative;*/
   /*overflow: auto;*/
 }
 
-#vader {
+/*#vader {
   /*height: 80px;*/
-  width: 80px;
-  left: -10px;
-  top: -8px;
-}
+  /*height: 70px;
+  width: 70px;*/
+  /*width: 80px;*/
+  /*left: -10px;
+  top: -8px;*/
+/*}*/
 
 .player2 {
-  height: 65px;
+  height: 60px;
   left: 230px;
   position: absolute;
   width: 60px;
+  /*background-color: white;*/
 }
 
 .columns {
@@ -172,6 +175,7 @@ img {
   background-position: center;
   text-align: center;
   color: white;
+  position: absolute;
 }
 
 .select-char h1 {
