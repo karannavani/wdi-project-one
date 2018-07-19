@@ -16,12 +16,15 @@ window.addEventListener('DOMContentLoaded', () => {
   const gravity = 0.8;
   const charLeft = box.offsetLeft;
   const charRight = parseInt(charLeft) + 60 + 'px';
+  const player2Left = player2.offsetLeft;
+  const player2Right = parseInt(player2Left) + 60 + 'px';
   const countdownDiv = $('.countdown');
   box.style.top = 280 + 'px';
   player2.style.top = 280 + 'px';
   let speed = 250;
   let columnSpeed = 25;
-  let collision = false;
+  let collision1 = false;
+  let collision2 = false;
   let moveInterval;
   const scoreSpan = document.querySelector('#score-holder');
   const resetButton = document.querySelector('#reset-button');
@@ -93,7 +96,7 @@ window.addEventListener('DOMContentLoaded', () => {
     randomTop = Math.floor(Math.random()*600);
     randomBottom = Math.floor(Math.random()*600);
 
-    if (randomBottom > 100 && randomTop > 100 && (randomTop + randomBottom) > 500 && (randomTop + randomBottom) < 520) {
+    if (randomBottom > 120 && randomTop > 120 && (randomTop + randomBottom) > 500 && (randomTop + randomBottom) < 520) {
       return;
     } else {
       heightGenerator();
@@ -124,7 +127,8 @@ window.addEventListener('DOMContentLoaded', () => {
       topColCheck++;
       leftGenerator();
 
-      if (collision) {
+
+      if (selection === 'single' && collision1) {
         clearInterval(colGenInterval);
       }
     }, speed);
@@ -137,7 +141,7 @@ window.addEventListener('DOMContentLoaded', () => {
       columnArr.forEach(function(item) {
         item.style.left = parseInt(item.style.left) - 5 + 'px';
       });
-      if (selection === 'single' && collision) {
+      if (selection === 'single' && collision1) {
         clearInterval(moveInterval);
       }
     }, columnSpeed);
@@ -168,7 +172,7 @@ window.addEventListener('DOMContentLoaded', () => {
       window.addEventListener('keydown', e => {
         if (e.which === 32) {
           e.preventDefault();
-          yVelocity = 10;
+          yVelocity = 9;
         }
       });
     } else if (selection === 'multi') {
@@ -176,11 +180,11 @@ window.addEventListener('DOMContentLoaded', () => {
       window.addEventListener('keydown', event => {
         if (event.location === KeyboardEvent.DOM_KEY_LOCATION_LEFT) {
           event.preventDefault();
-          yVelocity = 10;
+          yVelocity = 9;
         }
         if (event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
           event.preventDefault();
-          yVelocity2 = 10;
+          yVelocity2 = 9;
         }
       });
     }
@@ -216,15 +220,15 @@ window.addEventListener('DOMContentLoaded', () => {
     const collisionInterval = setInterval(function(){
       topColArr = document.querySelectorAll('.topColumn');
       const divRight = parseInt(topColArr[index].style.left + 100 + 'px');
-
       const charBottom = parseInt(box.style.top) + 70 + 'px';
+      const player2Bottom = parseInt(player2.style.top) + 70 + 'px';
       // console.log(box.style.top);
 
       if ((box.style.top <= topColArr[index].style.height || parseInt(charBottom) >= bottomColArr[index].offsetTop)
       && (charRight >= topColArr[index].style.left && charLeft <= divRight)) {
-        // console.log('collision!!!');
+        console.log('Player 1 collision!!!');
         box.style.transform = 'rotate(70deg)';
-        collision = true;
+        collision1 = true;
         if (selection === 'single') {
           clearInterval(collisionInterval);
           $('.end-screen').toggleClass('hidden');
@@ -236,55 +240,73 @@ window.addEventListener('DOMContentLoaded', () => {
           },1600);
         }
         scoreSpan.innerHTML = index;
-
         return;
+
       } else if ((parseInt(divRight) + 65) < charLeft){
         // console.log('crossed');
         index = index + 1;
         scoreDiv.textContent = index;
-        // console.log(columnArr);
-
-        // if (parseInt(divRight) < 200) {
-        //   console.log(divRight);
-        //   document.querySelectorAll('.columns').removeChild(index);
-        //   // columnArr.splice(index,1);
-        // }
-        // speed toggle
-        switch (index) {
-          case 10:
-            columnSpeed = 22;
-            clearInterval(moveInterval);
-            moveColumns();
-            break;
-          case 20: // foo is 0 so criteria met here so this block will run
-            columnSpeed = 19;
-            clearInterval(moveInterval);
-            moveColumns();
-            break;
-          case 30: // foo is 0 so criteria met here so this block will run
-            columnSpeed = 16;
-            clearInterval(moveInterval);
-            moveColumns();
-            break;
-          case 50: // foo is 0 so criteria met here so this block will run
-            columnSpeed = 13;
-            clearInterval(moveInterval);
-            moveColumns();
-            break;
-          case 70: // foo is 0 so criteria met here so this block will run
-            columnSpeed = 10;
-            clearInterval(moveInterval);
-            moveColumns();
-            break;
-          case 95: // foo is 0 so criteria met here so this block will run
-            columnSpeed = 7;
-            clearInterval(moveInterval);
-            moveColumns();
-            break;
-          default:
-            columnSpeed = 25;
-        }
         return false;
+      }
+
+      //player 2 logic
+
+      if ((player2.style.top <= topColArr[index].style.height || parseInt(player2Bottom) >= bottomColArr[index].offsetTop)
+      && (player2Right >= topColArr[index].style.left && player2Left <= divRight)) {
+        console.log('Player 2 collision!!!');
+        player2.style.transform = 'rotate(70deg)';
+        collision2 = true;
+
+        setTimeout(function() {
+          $('.player2').toggleClass('hidden');
+
+          $('.player2').remove();
+        },1600);
+
+        scoreSpan.innerHTML = index;
+        return;
+      }
+      // } else if ((parseInt(divRight) + 65) < charLeft){
+      //   // console.log('crossed');
+      //   index = index + 1;
+      //   scoreDiv.textContent = index;
+      //   return false;
+      // }
+
+      // speed toggle
+      switch (index) {
+        case 10:
+          columnSpeed = 22;
+          clearInterval(moveInterval);
+          moveColumns();
+          break;
+        case 20: // foo is 0 so criteria met here so this block will run
+          columnSpeed = 19;
+          clearInterval(moveInterval);
+          moveColumns();
+          break;
+        case 30: // foo is 0 so criteria met here so this block will run
+          columnSpeed = 16;
+          clearInterval(moveInterval);
+          moveColumns();
+          break;
+        case 50: // foo is 0 so criteria met here so this block will run
+          columnSpeed = 13;
+          clearInterval(moveInterval);
+          moveColumns();
+          break;
+        case 70: // foo is 0 so criteria met here so this block will run
+          columnSpeed = 10;
+          clearInterval(moveInterval);
+          moveColumns();
+          break;
+        case 95: // foo is 0 so criteria met here so this block will run
+          columnSpeed = 7;
+          clearInterval(moveInterval);
+          moveColumns();
+          break;
+        default:
+          columnSpeed = 25;
       }
     }, 50);
   }
@@ -327,7 +349,8 @@ window.addEventListener('DOMContentLoaded', () => {
     player2.style.top = 280 + 'px';
     speed = 250;
     columnSpeed = 25;
-    collision = false;
+    collision1 = false;
+    collision2 = false;
     yVelocity = 0;
     yPos = 280;
     yVelocity2 = 0;
