@@ -230,6 +230,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const player2Bottom = parseInt(player2.style.top) + 70 + 'px';
       // console.log(box.style.top);
 
+      //player 1 logic
       if ((box.style.top <= topColArr[index].style.height || parseInt(charBottom) >= bottomColArr[index].offsetTop)
       && (charRight >= topColArr[index].style.left && charLeft <= divRight)) {
         console.log('Player 1 collision!!!');
@@ -239,12 +240,13 @@ window.addEventListener('DOMContentLoaded', () => {
           clearInterval(collisionInterval);
           $('.end-screen').toggleClass('hidden');
           gameRunning = false;
-        } else {
+        } else if (selection === 'multi' && collision1) {
           setTimeout(function() {
             $('.box').toggleClass('hidden');
-            $('.box').remove();
-          },1000);
+            // $('.box').remove();
+          },200);
         }
+
         scoreSpan.innerHTML = index;
         return;
 
@@ -256,7 +258,7 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
       //player 2 logic
-      if (selection === 'multi') {
+      if (selection === 'multi' && !collision2) {
 
         if ((player2.style.top <= topColArr[index].style.height || parseInt(player2Bottom) >= bottomColArr[index].offsetTop)
         && (player2Right >= topColArr[index].style.left && player2Left <= divRight)) {
@@ -266,8 +268,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
           setTimeout(function() {
             $('.player2').toggleClass('hidden');
-            $('.player2').remove();
-          },1000);
+            // $('.player2').remove();
+          },200);
 
           scoreSpan.innerHTML = index;
           return;
@@ -291,11 +293,11 @@ window.addEventListener('DOMContentLoaded', () => {
       //   return false;
       // }
       if (collision1 && collision2) {
+        $('.end-screen').toggleClass('hidden');
         gameRunning = false;
         clearInterval(collisionInterval);
         clearInterval(gravityInterval);
         clearInterval(colGenInterval);
-        $('.end-screen').toggleClass('hidden');
         $('#score-holder').css('font-size', '25px');
         scoreSpan.innerHTML = `Player 1 – ${scoreDiv.textContent}
 
@@ -370,7 +372,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function resetGame() {
     if (selection === 'multi') {
-      $('.player2').toggle('hidden');
+      // $( '.game-container' ).add( '.box' );
+      $('.box').toggleClass('hidden');
+      $('.player2').toggleClass('hidden');
     }
     gameRunning = false;
     topColCheck = 0;
