@@ -37,6 +37,15 @@ window.addEventListener('DOMContentLoaded', () => {
   let yVelocity2 = 0;
   let yPos2 = 280;
   let selection;
+  //for additional characters
+  const charArray =
+  [
+    {name: 'Han Solo', src: 'images/solo.gif'},
+    {name: 'Chewbacca', src: 'images/chewie.gif'},
+    {name: 'Luke Skywalker', src: 'images/luke.png'},
+    {name: 'Darth Vader', src: 'images/vader.png'}
+  ];
+
   //scoreBoard stuff
   // *******************************************
   const highScoreForm = document.querySelector('form');

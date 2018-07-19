@@ -23,7 +23,7 @@ img {
 }
 
 #vader {
-  height: 80px;
+  /*height: 80px;*/
   width: 80px;
   left: -10px;
   top: -8px;
@@ -129,6 +129,26 @@ img {
   /*background-color: black;*/
   color: white;
   letter-spacing: 0.1em;
+}
+
+.select-char {
+  font-family: 'Geostar Fill', cursive;
+  letter-spacing: 0.1em;
+  height: 650px;
+  background-image: url('images/charselect.jpg');
+  background-size: auto;
+  background-position: center;
+  text-align: center;
+  color: white;
+}
+
+.select-char h1 {
+  padding: 20px 0;
+}
+
+.display-char {
+  background-color: rgba(0,0,0,0.7);
+  height: 350px;
 }
 
 .score-board {
