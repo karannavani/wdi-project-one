@@ -175,6 +175,8 @@ window.addEventListener('DOMContentLoaded', () => {
       window.addEventListener('keydown', e => {
         if (e.which === 32) {
           e.preventDefault();
+          $('#oneTime').attr('src','sounds/jump.wav');
+          $('#oneTime')[0].play();
           yVelocity = 9;
         }
       });
@@ -183,10 +185,14 @@ window.addEventListener('DOMContentLoaded', () => {
       window.addEventListener('keydown', event => {
         if (event.location === KeyboardEvent.DOM_KEY_LOCATION_LEFT) {
           event.preventDefault();
+          $('#oneTime').attr('src','sounds/jump.wav');
+          $('#oneTime')[0].play();
           yVelocity = 9;
         }
         if (event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
           event.preventDefault();
+          $('#oneTime').attr('src','sounds/jump.wav');
+          $('#oneTime')[0].play();
           yVelocity2 = 9;
         }
       });
@@ -228,11 +234,15 @@ window.addEventListener('DOMContentLoaded', () => {
       const divRight = parseInt(topColArr[index].style.left + 100 + 'px');
       const charBottom = parseInt(box.style.top) + 70 + 'px';
       const player2Bottom = parseInt(player2.style.top) + 70 + 'px';
+
       // console.log(box.style.top);
 
       //player 1 logic
       if ((box.style.top <= topColArr[index].style.height || parseInt(charBottom) >= bottomColArr[index].offsetTop)
       && (charRight >= topColArr[index].style.left && charLeft <= divRight)) {
+
+        $('#oneTime').attr('src','sounds/dying.wav');
+        $('#oneTime')[0].play();
         console.log('Player 1 collision!!!');
         box.style.transform = 'rotate(70deg)';
         collision1 = true;
@@ -262,6 +272,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
         if ((player2.style.top <= topColArr[index].style.height || parseInt(player2Bottom) >= bottomColArr[index].offsetTop)
         && (player2Right >= topColArr[index].style.left && player2Left <= divRight)) {
+          $('#oneTime').attr('src','sounds/dying.wav');
+          $('#oneTime')[0].play();
           console.log('Player 2 collision!!!');
           player2.style.transform = 'rotate(70deg)';
           collision2 = true;
@@ -414,13 +426,15 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
     $(window).click(function(e) {
-      $('audio').attr('src','sounds/fx4.wav');
-      $('audio')[0].play();
+      $('#oneTime').attr('src','sounds/fx4.wav');
+      $('#oneTime')[0].play();
       if (e.target === singlePlayer) {
         selection = 'single';
         startScreen();
         speed = 1500;
         assignKeys();
+        $('#backgroundAudio').attr('src','sounds/cantina.mp3');
+        $('#backgroundAudio')[0].play();
         return true;
       } else if (e.target === multiPlayer) {
         selection = 'multi';
@@ -430,6 +444,8 @@ window.addEventListener('DOMContentLoaded', () => {
         startScreen();
         speed = 1500;
         assignKeys();
+        $('#backgroundAudio').attr('src','sounds/cantina.mp3');
+        $('#backgroundAudio')[0].play();
         return true;
       }
     });
