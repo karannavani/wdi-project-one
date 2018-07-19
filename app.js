@@ -23,7 +23,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const countdownDiv = $('.countdown');
   box.style.top = 280 + 'px';
   player2.style.top = 280 + 'px';
-  let speed = 250;
+  let speed = 500;
   let columnSpeed = 25;
   let collision1 = false;
   let collision2 = false;
@@ -38,37 +38,37 @@ window.addEventListener('DOMContentLoaded', () => {
   let yPos2 = 280;
   let selection;
   //for additional characters
-  // const charArray =
-  // [
-  //   {name: 'Han Solo', src: 'images/solo.gif'},
-  //   {name: 'Chewbacca', src: 'images/chewie.gif'},
-  //   {name: 'Luke Skywalker', src: 'images/luke.png'},
-  //   {name: 'Darth Vader', src: 'images/vader.png'},
-  //   {name: 'Darth Maul', src: 'images/maul.png'},
-  //   {name: 'Kylo Ren', src: 'images/kylo.png'}
-  // ];
-  // const charName = document.querySelector('.char-name');
-  // const charImage = document.querySelector('.char-image');
-  // const previous = document.querySelector('#previous');
-  // const next = document.querySelector('#next');
-  // let charIndex = 0;
-  //
-  // charName.innerHTML = charArray[0].name;
-  // charImage.style.backgroundImage = `url('${charArray[0].src}')`;
-  //
-  // window.addEventListener('click',function(e) {
-  //   if (e.target === previous && charIndex > 0) {
-  //     charIndex--;
-  //     charName.innerHTML = charArray[charIndex].name;
-  //     charImage.style.backgroundImage = `url('${charArray[charIndex].src}')`;
-  //     console.log(charIndex);
-  //   } else if (e.target === next && charIndex < 5) {
-  //     charIndex++;
-  //     charName.innerHTML = charArray[charIndex].name;
-  //     charImage.style.backgroundImage = `url('${charArray[charIndex].src}')`;
-  //     console.log(charIndex);
-  //   }
-  // });
+  const charArray =
+  [
+    {name: 'Han Solo', src: 'images/solo.gif'},
+    {name: 'Chewbacca', src: 'images/chewie.gif'},
+    {name: 'Luke Skywalker', src: 'images/luke.png'},
+    {name: 'Darth Vader', src: 'images/vader.png'},
+    {name: 'Darth Maul', src: 'images/maul.png'},
+    {name: 'Kylo Ren', src: 'images/kylo.png'}
+  ];
+  const charName = document.querySelector('.char-name');
+  const charImage = document.querySelector('.char-image');
+  const previous = document.querySelector('#previous');
+  const next = document.querySelector('#next');
+  let charIndex = 0;
+
+  charName.innerHTML = charArray[0].name;
+  charImage.style.backgroundImage = `url('${charArray[0].src}')`;
+
+  window.addEventListener('click',function(e) {
+    if (e.target === previous && charIndex > 0) {
+      charIndex--;
+      charName.innerHTML = charArray[charIndex].name;
+      charImage.style.backgroundImage = `url('${charArray[charIndex].src}')`;
+      console.log(charIndex);
+    } else if (e.target === next && charIndex < 5) {
+      charIndex++;
+      charName.innerHTML = charArray[charIndex].name;
+      charImage.style.backgroundImage = `url('${charArray[charIndex].src}')`;
+      console.log(charIndex);
+    }
+  });
 
   //scoreBoard stuff
   // *******************************************
@@ -230,18 +230,6 @@ window.addEventListener('DOMContentLoaded', () => {
         }
       });
     }
-
-    // window.addEventListener('keydown', e => {
-    //   if (e.which === 32) {
-    //     e.preventDefault();
-    //     yVelocity = 10;
-    //     console.log('hi');
-    //   }
-    //   if (e.which === 16) {
-    //     e.preventDefault();
-    //     yVelocity = 10;
-    //     console.log('hi');
-    //   }
   }
 
 
@@ -394,7 +382,11 @@ window.addEventListener('DOMContentLoaded', () => {
   //controls all functions from start screen
   function startScreen() {
     $('.start-screen').toggleClass('hidden');
-    $('.game-container').toggleClass('hidden');
+    if (selection === 'single') {
+      $('.select-char').toggleClass('hidden');
+    } else {
+      $('.game-container').toggleClass('hidden');
+    }
 
     startCountdown();
 

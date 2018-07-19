@@ -41,6 +41,8 @@ background-position: center;
   font-size: 12px;
 }
 
+
+
 /*.char-image background-image {
 height: 100px;
 width: 100px;
@@ -170,6 +172,7 @@ margin: auto;
   font-family: 'Geostar Fill', cursive;
   letter-spacing: 0.1em;
   height: 650px;
+  width: 100%;
   background-image: url('images/charselect.jpg');
   background-size: auto;
   background-position: center;
