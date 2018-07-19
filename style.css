@@ -33,7 +33,7 @@ img {
 
 .player2 {
   height: 65px;
-  left: 220px;
+  left: 230px;
   position: absolute;
   width: 60px;
 }
@@ -69,6 +69,20 @@ img {
   left: 500px;
   top: 0;
   background-color: grey;
+  position: absolute;
+}
+
+.score2 {
+  /*margin: 0 auto;*/
+  font-family: 'Geostar Fill', cursive;
+  padding-left: 50px;
+  padding-right: 50px;
+  font-weight: 800;
+  font-size: 40px;
+  color: white;
+  left: 590px;
+  top: 0;
+  background-color: #111111;
   position: absolute;
 }
 .countdown {

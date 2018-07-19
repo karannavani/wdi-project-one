@@ -10,6 +10,7 @@ window.addEventListener('DOMContentLoaded', () => {
   let topColCheck = 0;
   let left0 = 500;
   let index = 0;
+  let p2index = 0;
   let time = 2;
   let yVelocity = 0;
   let yPos = 280;
@@ -143,6 +144,8 @@ window.addEventListener('DOMContentLoaded', () => {
       });
       if (selection === 'single' && collision1) {
         clearInterval(moveInterval);
+      } else if (selection === 'multi' && collision1 && collision2) {
+        clearInterval(moveInterval);
       }
     }, columnSpeed);
   }
@@ -215,8 +218,11 @@ window.addEventListener('DOMContentLoaded', () => {
   //checks if character is dead
   function isDead() {
     index = 0;
+    p2index = 0;
     const scoreDiv = document.querySelector('.score');
+    const score2Div = document.querySelector('.score2');
     scoreDiv.textContent = index;
+    score2Div.textContent = index;
     const collisionInterval = setInterval(function(){
       topColArr = document.querySelectorAll('.topColumn');
       const divRight = parseInt(topColArr[index].style.left + 100 + 'px');
@@ -265,6 +271,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
         scoreSpan.innerHTML = index;
         return;
+
+      } else if ((parseInt(divRight) + 65) < player2Left){
+        if (!collision2) {
+
+          p2index = index + 1;
+        }
+        if (collision1) {
+          index = p2index;
+        }
+        score2Div.textContent = p2index;
+        return false;
       }
       // } else if ((parseInt(divRight) + 65) < charLeft){
       //   // console.log('crossed');
@@ -272,7 +289,9 @@ window.addEventListener('DOMContentLoaded', () => {
       //   scoreDiv.textContent = index;
       //   return false;
       // }
-
+      if (collision1 && collision2) {
+        clearInterval(collisionInterval);
+      }
       // speed toggle
       switch (index) {
         case 10:
@@ -345,6 +364,7 @@ window.addEventListener('DOMContentLoaded', () => {
     topColCheck = 0;
     left0 = 500;
     index = 0;
+    p2index = 0;
     box.style.top = 280 + 'px';
     player2.style.top = 280 + 'px';
     speed = 250;
@@ -367,6 +387,7 @@ window.addEventListener('DOMContentLoaded', () => {
     $('.countdown').html(3);
     $('.countdown').toggleClass('hidden');
     $('.score').html(0);
+    $('.score2').html(0);
     startCountdown();
   }
 
@@ -385,6 +406,8 @@ window.addEventListener('DOMContentLoaded', () => {
         return true;
       } else if (e.target === multiPlayer) {
         selection = 'multi';
+        $('.score').css('left','420px');
+        $('.score2').toggleClass('hidden');
         $('.player2').toggleClass('hidden');
         startScreen();
         speed = 1500;
