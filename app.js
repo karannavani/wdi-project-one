@@ -49,9 +49,26 @@ window.addEventListener('DOMContentLoaded', () => {
   ];
   const charName = document.querySelector('.char-name');
   const charImage = document.querySelector('.char-image');
+  const previous = document.querySelector('#previous');
+  const next = document.querySelector('#next');
+  let charIndex = 0;
 
   charName.innerHTML = charArray[0].name;
   charImage.style.backgroundImage = `url('${charArray[0].src}')`;
+
+  window.addEventListener('click',function(e) {
+    if (e.target === previous) {
+      charIndex--;
+      charName.innerHTML = charArray[charIndex].name;
+      charImage.style.backgroundImage = `url('${charArray[charIndex].src}')`;
+      console.log(charIndex);
+    } else if (e.target === next) {
+      charIndex++;
+      charName.innerHTML = charArray[charIndex].name;
+      charImage.style.backgroundImage = `url('${charArray[charIndex].src}')`;
+      console.log(charIndex);
+    }
+  });
 
   //scoreBoard stuff
   // *******************************************
