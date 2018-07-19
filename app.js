@@ -40,7 +40,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // *******************************************
   const highScoreForm = document.querySelector('form');
   const ul = document.querySelector('ul');
-  const clearHighScores = document.querySelector('#clear-storage');
+  // const clearHighScores = document.querySelector('#clear-storage');
   const input = document.getElementById('score');
   const highScores = localStorage.getItem('scores') ? JSON.parse(localStorage.getItem('scores')) : [];
   // localStorage.setItem('scores', JSON.stringify(itemsArray));
@@ -74,12 +74,12 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  clearHighScores.addEventListener('click', function () {
-    localStorage.clear();
-    while (ul.firstChild) {
-      ul.removeChild(ul.firstChild);
-    }
-  });
+  // clearHighScores.addEventListener('click', function () {
+  //   localStorage.clear();
+  //   while (ul.firstChild) {
+  //     ul.removeChild(ul.firstChild);
+  //   }
+  // });
 
   viewScore.addEventListener('click', function () {
     // generateHighScoreTable();
