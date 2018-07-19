@@ -242,7 +242,7 @@ window.addEventListener('DOMContentLoaded', () => {
             $('.box').toggleClass('hidden');
 
             $('.box').remove();
-          },1600);
+          },1000);
         }
         scoreSpan.innerHTML = index;
         return;
@@ -266,7 +266,7 @@ window.addEventListener('DOMContentLoaded', () => {
           $('.player2').toggleClass('hidden');
 
           $('.player2').remove();
-        },1600);
+        },1000);
 
         scoreSpan.innerHTML = index;
         return;
@@ -402,6 +402,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
     $(window).click(function(e) {
+      $('audio').attr('src','sounds/fx4.wav');
+      $('audio')[0].play();
       if (e.target === singlePlayer) {
         selection = 'single';
         startScreen();
