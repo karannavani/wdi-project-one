@@ -171,7 +171,7 @@ margin: auto;
 .select-char {
   font-family: 'Geostar Fill', cursive;
   letter-spacing: 0.1em;
-  height: 650px;
+  height: 100%;
   width: 100%;
   background-image: url('images/charselect.jpg');
   background-size: auto;
