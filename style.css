@@ -72,6 +72,23 @@ img {
   position: absolute;
 }
 
+.topColumn {
+  background-image: url('images/pipes-top.png');
+  background-position: bottom;
+}
+
+.bottomColumn {
+  background-image: url('images/pipes.png');
+  background-position: top;
+}
+
+/*.pipe-top {
+  height: inherit;
+  width: inherit;
+  margin: 0;
+  padding: 0;
+}*/
+
 .score2 {
   /*margin: 0 auto;*/
   font-family: 'Geostar Fill', cursive;

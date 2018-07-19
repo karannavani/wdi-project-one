@@ -121,7 +121,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     colGenInterval = window.setInterval(()=> {
       heightGenerator();
-      $('<div>').addClass('topColumn column hidden').css({backgroundColor: '#85144b', height: randomTop, width: 100, position: 'absolute', top: 0 }).appendTo('.columns');
+      $('<div>').addClass('topColumn column pipe-top hidden').css({backgroundColor: '#85144b', height: randomTop, width: 100, position: 'absolute', top: 0 }).appendTo('.columns');
       $('<div>').addClass('bottomColumn column hidden').css({backgroundColor: '#85144b', height: randomBottom, width: 100, position: 'absolute', bottom: 0 }).appendTo('.columns');
       topColArr = document.querySelectorAll('.topColumn');
       bottomColArr = document.querySelectorAll('.bottomColumn');
