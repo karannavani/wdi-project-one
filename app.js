@@ -43,8 +43,15 @@ window.addEventListener('DOMContentLoaded', () => {
     {name: 'Han Solo', src: 'images/solo.gif'},
     {name: 'Chewbacca', src: 'images/chewie.gif'},
     {name: 'Luke Skywalker', src: 'images/luke.png'},
-    {name: 'Darth Vader', src: 'images/vader.png'}
+    {name: 'Darth Vader', src: 'images/vader.png'},
+    {name: 'Darth Maul', src: 'images/maul.png'},
+    {name: 'Kylo Ren', src: 'images/kylo.png'}
   ];
+  const charName = document.querySelector('.char-name');
+  const charImage = document.querySelector('.char-image');
+
+  charName.innerHTML = charArray[0].name;
+  charImage.style.backgroundImage = `url('${charArray[0].src}')`;
 
   //scoreBoard stuff
   // *******************************************

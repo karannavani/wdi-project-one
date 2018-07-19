@@ -14,6 +14,38 @@ body {
   /*transition: top 0.08s ease;*/
 }
 
+.char-name {
+  padding: 0;
+  margin: 0;
+  padding-top: 20px;
+  font-size: 40px;
+}
+
+.char-image {
+height: 200px;
+width: auto;
+margin: auto;
+background-size: 200px;
+background-repeat: no-repeat;
+background-position: center;
+}
+
+.chooseChar {
+  font-family: 'Geostar Fill', cursive;
+  letter-spacing: 0.2em;
+  margin-top: 20px;
+  border: none;
+  margin-right: 40px;
+  height: 30px;
+  width: 140px;
+  font-size: 12px;
+}
+
+/*.char-image background-image {
+height: 100px;
+width: 100px;
+margin: auto;
+}*/
 
 img {
   height: 70px;
