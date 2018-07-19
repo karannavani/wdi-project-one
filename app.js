@@ -15,6 +15,7 @@ window.addEventListener('DOMContentLoaded', () => {
   let yVelocity = 0;
   let yPos = 280;
   const gravity = 0.8;
+  let colGenInterval;
   const charLeft = box.offsetLeft;
   const charRight = parseInt(charLeft) + 60 + 'px';
   const player2Left = player2.offsetLeft;
@@ -118,7 +119,7 @@ window.addEventListener('DOMContentLoaded', () => {
   //generates columns and appends them to 'columns' class
   function generateColumns() {
 
-    const colGenInterval = window.setInterval(()=> {
+    colGenInterval = window.setInterval(()=> {
       heightGenerator();
       $('<div>').addClass('topColumn column hidden').css({backgroundColor: '#85144b', height: randomTop, width: 100, position: 'absolute', top: 0 }).appendTo('.columns');
       $('<div>').addClass('bottomColumn column hidden').css({backgroundColor: '#85144b', height: randomBottom, width: 100, position: 'absolute', bottom: 0 }).appendTo('.columns');
@@ -237,10 +238,10 @@ window.addEventListener('DOMContentLoaded', () => {
         if (selection === 'single') {
           clearInterval(collisionInterval);
           $('.end-screen').toggleClass('hidden');
+          gameRunning = false;
         } else {
           setTimeout(function() {
             $('.box').toggleClass('hidden');
-
             $('.box').remove();
           },1000);
         }
@@ -255,32 +256,33 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
       //player 2 logic
+      if (selection === 'multi') {
 
-      if ((player2.style.top <= topColArr[index].style.height || parseInt(player2Bottom) >= bottomColArr[index].offsetTop)
-      && (player2Right >= topColArr[index].style.left && player2Left <= divRight)) {
-        console.log('Player 2 collision!!!');
-        player2.style.transform = 'rotate(70deg)';
-        collision2 = true;
+        if ((player2.style.top <= topColArr[index].style.height || parseInt(player2Bottom) >= bottomColArr[index].offsetTop)
+        && (player2Right >= topColArr[index].style.left && player2Left <= divRight)) {
+          console.log('Player 2 collision!!!');
+          player2.style.transform = 'rotate(70deg)';
+          collision2 = true;
 
-        setTimeout(function() {
-          $('.player2').toggleClass('hidden');
+          setTimeout(function() {
+            $('.player2').toggleClass('hidden');
+            $('.player2').remove();
+          },1000);
 
-          $('.player2').remove();
-        },1000);
+          scoreSpan.innerHTML = index;
+          return;
 
-        scoreSpan.innerHTML = index;
-        return;
+        } else if ((parseInt(divRight) + 65) < player2Left){
+          if (!collision2) {
 
-      } else if ((parseInt(divRight) + 65) < player2Left){
-        if (!collision2) {
-
-          p2index = index + 1;
+            p2index = index + 1;
+          }
+          if (collision1) {
+            index = p2index;
+          }
+          score2Div.textContent = p2index;
+          return false;
         }
-        if (collision1) {
-          index = p2index;
-        }
-        score2Div.textContent = p2index;
-        return false;
       }
       // } else if ((parseInt(divRight) + 65) < charLeft){
       //   // console.log('crossed');
@@ -289,7 +291,10 @@ window.addEventListener('DOMContentLoaded', () => {
       //   return false;
       // }
       if (collision1 && collision2) {
+        gameRunning = false;
         clearInterval(collisionInterval);
+        clearInterval(gravityInterval);
+        clearInterval(colGenInterval);
         $('.end-screen').toggleClass('hidden');
         $('#score-holder').css('font-size', '25px');
         scoreSpan.innerHTML = `Player 1 – ${scoreDiv.textContent}
@@ -364,6 +369,9 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   function resetGame() {
+    if (selection === 'multi') {
+      $('.player2').toggle('hidden');
+    }
     gameRunning = false;
     topColCheck = 0;
     left0 = 500;

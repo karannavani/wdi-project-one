@@ -1,10 +1,6 @@
-html {
-  /*background-color: black;*/
-  background-image: url('images/start.gif');
-}
-
 body {
   margin: 0;
+  background-image: url('images/start.gif');
 
 }
 
@@ -105,8 +101,8 @@ img {
 
 .start-screen {
   font-family: 'Geostar Fill', cursive;
-  /*padding-top: 5%;*/
-  bottom: 5%;
+  padding-top: 3%;
+  /*bottom: 5%;*/
   font-size: 60px;
   padding-left: 20px;
   /*padding: 20px;*/
