@@ -4,6 +4,7 @@ html {
 
 body {
   margin: 0;
+
 }
 
 .box {
@@ -49,6 +50,7 @@ img {
   overflow: hidden;
   /*height: 700px;*/
   height: 700px;
+  width: 1400px;
   background-image: url('images/3.jpg');
   background-size: auto 900px;
   background-repeat: no-repeat;
@@ -119,10 +121,11 @@ img {
   font-family: 'Geostar Fill', cursive;
   color: white;
   background-color: grey;
-  position: absolute;
+  /*position: absolute;*/
   height: 100%;
   width: 100%;
   margin-top: 50px;
+  text-align: center;
   padding-left: 10px;
 }
 
@@ -151,8 +154,38 @@ button {
   left: 500px;
 }
 
+#logo {
+  z-index: 1000;
+  height: 10%;
+  max-height: 10%;
+  width: 50%;
+  max-width: 50%;
+  margin: auto;
+  display: block;
+}
+
 #score-holder {
   font-size: 40px;
+}
+
+.selections {
+  display: flex;
+  justify-content: center;
+    /*margin: 0 auto;*/
+}
+.select-mode {
+  font-family: 'Geostar Fill', cursive;
+  letter-spacing: 0.2em;
+  font-size: 30px;
+  padding: 10px;
+  margin-top: 50px;
+  margin-left: 20px;
+  border: 0;
+  text-align: center;
+}
+
+.select-mode:hover {
+  background-color: #FFDC00;
 }
 
 form {

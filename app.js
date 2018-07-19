@@ -151,7 +151,6 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   //gravity
-
   function calculateY() {
     if(yPos < 620) {
       yPos -= yVelocity;
@@ -291,6 +290,11 @@ window.addEventListener('DOMContentLoaded', () => {
       // }
       if (collision1 && collision2) {
         clearInterval(collisionInterval);
+        $('.end-screen').toggleClass('hidden');
+        $('#score-holder').css('font-size', '25px');
+        scoreSpan.innerHTML = `Player 1 – ${scoreDiv.textContent}
+
+        Player 2 – ${score2Div.textContent}`;
       }
       // speed toggle
       switch (index) {
