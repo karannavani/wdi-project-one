@@ -388,6 +388,7 @@ window.addEventListener('DOMContentLoaded', () => {
       window.addEventListener('click', function(e) {
         if (e.target === begin) {
           $('.p1').attr('src', charArray[charIndex].src);
+          $('.select-char').toggleClass('hidden');
           $('.game-container').toggleClass('hidden');
           startCountdown();
         }

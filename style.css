@@ -205,6 +205,14 @@ margin: auto;
   text-align: center;
 }
 
+.score-board h1 {
+  font-size: 25px;
+}
+.score-board ul {
+  font-size: 20px;
+  padding: 0;
+}
+
 
 /*input {
   display: block;
