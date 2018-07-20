@@ -209,8 +209,8 @@ window.addEventListener('DOMContentLoaded', () => {
       window.addEventListener('keydown', e => {
         if (e.which === 32) {
           e.preventDefault();
-          // $('#oneTime').attr('src','sounds/jump.wav');
-          // $('#oneTime')[0].play();
+          $('#oneTime').attr('src','sounds/jump.wav');
+          $('#oneTime')[0].play();
           yVelocity = 9;
         }
       });
@@ -219,14 +219,14 @@ window.addEventListener('DOMContentLoaded', () => {
       window.addEventListener('keydown', event => {
         if (event.location === KeyboardEvent.DOM_KEY_LOCATION_LEFT) {
           event.preventDefault();
-          // $('#oneTime').attr('src','sounds/jump.wav');
-          // $('#oneTime')[0].play();
+          $('#oneTime').attr('src','sounds/jump.wav');
+          $('#oneTime')[0].play();
           yVelocity = 9;
         }
         if (event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
           event.preventDefault();
-          // $('#oneTime').attr('src','sounds/jump.wav');
-          // $('#oneTime')[0].play();
+          $('#oneTime').attr('src','sounds/jump.wav');
+          $('#oneTime')[0].play();
           yVelocity2 = 9;
         }
       });
@@ -325,12 +325,7 @@ window.addEventListener('DOMContentLoaded', () => {
           return false;
         }
       }
-      // } else if ((parseInt(divRight) + 65) < charLeft){
-      //   // console.log('crossed');
-      //   index = index + 1;
-      //   scoreDiv.textContent = index;
-      //   return false;
-      // }
+
       if (collision1 && collision2) {
         $('.end-screen').toggleClass('hidden');
         gameRunning = false;
@@ -491,13 +486,7 @@ window.addEventListener('DOMContentLoaded', () => {
         return true;
       }
     });
-    // $(window).keypress(function(e) {
-    //   if(e.which === 13) {
-    //     startScreen();
-    //     speed = 1500;
-    //     return true;
-    //   }
-    // });
+
   }
 
   resetButton.addEventListener('click', function () {
