@@ -37,7 +37,7 @@ window.addEventListener('DOMContentLoaded', () => {
   let yVelocity2 = 0;
   let yPos2 = 280;
   let selection;
-  //for additional characters
+  // for additional characters
   const charArray =
   [
     {name: 'Han Solo', src: 'images/solo.gif'},
@@ -51,6 +51,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const charImage = document.querySelector('.char-image');
   const previous = document.querySelector('#previous');
   const next = document.querySelector('#next');
+  const begin = document.querySelector('#begin');
   let charIndex = 0;
 
   charName.innerHTML = charArray[0].name;
@@ -259,18 +260,18 @@ window.addEventListener('DOMContentLoaded', () => {
       // console.log(box.style.top);
 
       //player 1 logic
-      if (!collision1) {
 
-        if ((box.style.top <= topColArr[index].style.height || parseInt(charBottom) >= bottomColArr[index].offsetTop)
+      if ((box.style.top <= topColArr[index].style.height || parseInt(charBottom) >= bottomColArr[index].offsetTop)
         && (charRight >= topColArr[index].style.left && charLeft <= divRight)) {
 
+        if (!collision1) {
 
           console.log('Player 1 collision!!!');
           box.style.transform = 'rotate(70deg)';
           collision1 = true;
           $('#oneTime').attr('src','sounds/dying.wav');
           $('#oneTime')[0].play();
-          if (selection === 'single' && !collision1) {
+          if (selection === 'single' && collision1) {
             clearInterval(collisionInterval);
             $('.end-screen').toggleClass('hidden');
             gameRunning = false;
@@ -384,11 +385,17 @@ window.addEventListener('DOMContentLoaded', () => {
     $('.start-screen').toggleClass('hidden');
     if (selection === 'single') {
       $('.select-char').toggleClass('hidden');
-    } else {
+      window.addEventListener('click', function(e) {
+        if (e.target === begin) {
+          $('.game-container').toggleClass('hidden');
+          startCountdown();
+        }
+      });
+    } else if (selection === 'multi') {
       $('.game-container').toggleClass('hidden');
+      startCountdown();
     }
 
-    startCountdown();
 
   }
 
