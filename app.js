@@ -382,6 +382,7 @@ window.addEventListener('DOMContentLoaded', () => {
       $('.select-char').toggleClass('hidden');
       window.addEventListener('click', function(e) {
         if (e.target === begin) {
+          console.log('clicked');
           $('.p1').attr('src', charArray[charIndex].src);
           $('.select-char').toggleClass('hidden');
           $('.game-container').toggleClass('hidden');
@@ -389,15 +390,39 @@ window.addEventListener('DOMContentLoaded', () => {
         }
       });
     } else if (selection === 'multi') {
-      $('.game-container').toggleClass('hidden');
-      startCountdown();
+      $('.multi-pick').html('Player 1 Character Selection');
+      $('#begin').html('Player 2');
+      $('.select-char').toggleClass('hidden');
+      let char1 = false;
+      let char2 = false;
+      window.addEventListener('click', function(e) {
+        if (e.target === begin && char1 && char2) {
+          // char2 = true;
+          $('.p2').attr('src', charArray[charIndex].src);
+          $('.select-char').toggleClass('hidden');
+          $('.game-container').toggleClass('hidden');
+          startCountdown();
+        }
+        if (e.target === begin && !char2) {
+          const p1Selection = charArray[charIndex].src;
+          $('.p1').attr('src', p1Selection);
+          console.log(p1Selection);
+          $('.multi-pick').html('Player 2 Character Selection');
+          char1 = true;
+        }
+        // const p2Selection = charArray[charIndex].src;
+        if (e.target === begin && !char2) {
+          $('#begin').html('Begin');
+          char2 = true;
+        }
+
+      });
     }
 
 
   }
 
   function startCountdown() {
-
     const countdownInterval = setInterval(function() {
       countdownDiv.html(time);
       time = time - 1;
@@ -440,9 +465,14 @@ window.addEventListener('DOMContentLoaded', () => {
     box.style.transform = 'rotate(0deg)';
     player2.style.transform = 'rotate(0deg)';
     time = 2;
+    charName.innerHTML = charArray[0].name;
+    charImage.style.backgroundImage = `url('${charArray[0].src}')`;
+    selection = '';
     clearInterval(gravityInterval);
     $('.columns').empty();
     $('.end-screen').toggleClass('hidden');
+    // $('.select-char').toggleClass('hidden');
+    // $('.game-container').toggleClass('hidden');
     generateColumns(randomTop,randomBottom);
     //maybe speed needs to change before columns are generated
     speed = 1500;
