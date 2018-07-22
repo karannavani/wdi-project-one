@@ -24,8 +24,11 @@ There is a single player mode and a multiplayer mode.
 * CSS Animations
 
 # Approach Taken
+Throughout the project, I used Trello to manage my tasks and list down priorities. This helped me tackle the most important issues first and allowed me to lay down a strong foundation.
 
-Throughout the project, I used Trello to manage the 
+![](https://i.imgur.com/C5RiNtg.jpg)
+
+### Core functionality
 
 1. My challenge was to figure out what would be the best way to implement this in a browser using Javascript. I decided that having the character fixed on the x axis and having the pipes move toward it would be an efficient way to get started. 
  	
@@ -37,6 +40,6 @@ Throughout the project, I used Trello to manage the
 
  **	insert video**
  
-4. After that the essential game elements were in place, I had to figure out how to detect collision. This is detailed below in the 'Wins' section.
+4. After the essential game elements were in place, I had to figure out how to detect collision. This is detailed below in the 'Wins' section.
 
 5. In order to make the character motion smoother, I implemented gravity to have the parabolic effect that the original Flappy Bird introduced. This made for more realistic jumps and descents.
