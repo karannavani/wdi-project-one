@@ -1,7 +1,15 @@
 window.addEventListener('DOMContentLoaded', () => {
-  let gameRunning = false;
   const box = document.querySelector('.box');
   const player2 = document.querySelector('.player2');
+  const charLeft = box.offsetLeft;
+  const charRight = parseInt(charLeft) + 60 + 'px';
+  const player2Left = player2.offsetLeft;
+  const player2Right = parseInt(player2Left) + 60 + 'px';
+  const countdownDiv = $('.countdown');
+  const gravity = 0.8;
+  const scoreSpan = document.querySelector('#score-holder');
+  const resetButton = document.querySelector('#reset-button');
+  let gameRunning = false;
   let topColArr;
   let bottomColArr;
   let columnArr;
@@ -14,23 +22,16 @@ window.addEventListener('DOMContentLoaded', () => {
   let time = 2;
   let yVelocity = 0;
   let yPos = 280;
-  const gravity = 0.8;
   let colGenInterval;
-  const charLeft = box.offsetLeft;
-  const charRight = parseInt(charLeft) + 60 + 'px';
-  const player2Left = player2.offsetLeft;
-  const player2Right = parseInt(player2Left) + 60 + 'px';
-  const countdownDiv = $('.countdown');
-  box.style.top = 280 + 'px';
-  player2.style.top = 280 + 'px';
+  let collisionInterval;
   let speed = 500;
   let columnSpeed = 25;
   let collision1 = false;
   let collision2 = false;
   let moveInterval;
-  const scoreSpan = document.querySelector('#score-holder');
-  const resetButton = document.querySelector('#reset-button');
   let gravityInterval;
+  box.style.top = 280 + 'px';
+  player2.style.top = 280 + 'px';
   //multiplayer stuff
   const singlePlayer = document.querySelector('#single');
   const multiPlayer = document.querySelector('#multi');
@@ -72,14 +73,13 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   //scoreBoard stuff
-  // *******************************************
+
   const highScoreForm = document.querySelector('form');
   const ul = document.querySelector('ul');
-  // const clearHighScores = document.querySelector('#clear-storage');
+
   const input = document.getElementById('score');
   const highScores = localStorage.getItem('scores') ? JSON.parse(localStorage.getItem('scores')) : [];
-  // localStorage.setItem('scores', JSON.stringify(itemsArray));
-  // const data = JSON.parse(localStorage.getItem('scores'));
+
   const viewScore = document.querySelector('#view-score');
 
   const highScoreElements = (score) => {
@@ -122,11 +122,6 @@ window.addEventListener('DOMContentLoaded', () => {
     $('.start-screen').toggleClass('hidden');
   });
 
-
-
-  // // *******************************************
-
-
   //generate random heights for columns
   function heightGenerator() {
     randomTop = Math.floor(Math.random()*600);
@@ -162,7 +157,6 @@ window.addEventListener('DOMContentLoaded', () => {
       columnArr = document.querySelectorAll('.column');
       topColCheck++;
       leftGenerator();
-
 
       if (selection === 'single' && collision1) {
         clearInterval(colGenInterval);
@@ -251,7 +245,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const score2Div = document.querySelector('.score2');
     scoreDiv.textContent = index;
     score2Div.textContent = index;
-    const collisionInterval = setInterval(function(){
+    collisionInterval = setInterval(function(){
       topColArr = document.querySelectorAll('.topColumn');
       const divRight = parseInt(topColArr[index].style.left + 100 + 'px');
       const charBottom = parseInt(box.style.top) + 65 + 'px';
@@ -262,7 +256,7 @@ window.addEventListener('DOMContentLoaded', () => {
       //player 1 logic
 
       if ((box.style.top <= topColArr[index].style.height || parseInt(charBottom) >= bottomColArr[index].offsetTop)
-        && (charRight >= topColArr[index].style.left && charLeft <= divRight)) {
+      && (charRight >= topColArr[index].style.left && charLeft <= divRight)) {
 
         if (!collision1) {
 
@@ -272,12 +266,11 @@ window.addEventListener('DOMContentLoaded', () => {
           $('#oneTime').attr('src','sounds/dying.wav');
           $('#oneTime')[0].play();
           if (selection === 'single' && collision1) {
-            clearInterval(collisionInterval);
             $('.end-screen').toggleClass('hidden');
             gameRunning = false;
+
           } else if (selection === 'multi' && collision1) {
             setTimeout(function() {
-              collision1 = true;
               // $('.box').remove();
               $('.box').toggleClass('hidden');
             },100);
@@ -332,6 +325,7 @@ window.addEventListener('DOMContentLoaded', () => {
         clearInterval(collisionInterval);
         clearInterval(gravityInterval);
         clearInterval(colGenInterval);
+        clearInterval(moveInterval);
         $('#score-holder').css('font-size', '25px');
         scoreSpan.innerHTML = `Player 1 – ${scoreDiv.textContent}
 
@@ -418,8 +412,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
       });
     }
-
-
   }
 
   function startCountdown() {
@@ -442,45 +434,51 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   function resetGame() {
-    if (selection === 'multi') {
-      // $( '.game-container' ).add( '.box' );
-      $('.box').toggleClass('hidden');
-      $('.player2').toggleClass('hidden');
-    }
-    gameRunning = false;
-    topColCheck = 0;
-    left0 = 500;
-    index = 0;
-    p2index = 0;
-    box.style.top = 280 + 'px';
-    player2.style.top = 280 + 'px';
-    speed = 250;
-    columnSpeed = 25;
-    collision1 = false;
-    collision2 = false;
-    yVelocity = 0;
-    yPos = 280;
-    yVelocity2 = 0;
-    yPos2 = 280;
-    box.style.transform = 'rotate(0deg)';
-    player2.style.transform = 'rotate(0deg)';
-    time = 2;
-    charName.innerHTML = charArray[0].name;
-    charImage.style.backgroundImage = `url('${charArray[0].src}')`;
-    selection = '';
-    clearInterval(gravityInterval);
-    $('.columns').empty();
-    $('.end-screen').toggleClass('hidden');
-    // $('.select-char').toggleClass('hidden');
-    // $('.game-container').toggleClass('hidden');
-    generateColumns(randomTop,randomBottom);
-    //maybe speed needs to change before columns are generated
-    speed = 1500;
-    $('.countdown').html(3);
-    $('.countdown').toggleClass('hidden');
-    $('.score').html(0);
-    $('.score2').html(0);
-    startCountdown();
+    document.location.reload(true);
+    // if (selection === 'multi') {
+    //   $('.box').toggleClass('hidden');
+    //   $('.player2').toggleClass('hidden');
+    // }
+    //
+    // clearInterval(collisionInterval);
+    // clearInterval(moveInterval);
+    // clearInterval(gravityInterval);
+    // clearInterval(colGenInterval);
+    //
+    // gameRunning = false;
+    // topColCheck = 0;
+    // left0 = 500;
+    // index = 0;
+    // p2index = 0;
+    // box.style.top = 280 + 'px';
+    // player2.style.top = 280 + 'px';
+    // speed = 250;
+    // columnSpeed = 25;
+    // collision1 = false;
+    // collision2 = false;
+    // yVelocity = 0;
+    // yPos = 280;
+    // yVelocity2 = 0;
+    // yPos2 = 280;
+    // box.style.transform = 'rotate(0deg)';
+    // player2.style.transform = 'rotate(0deg)';
+    // time = 2;
+    // charIndex = 0;
+    // charName.innerHTML = charArray[0].name;
+    // charImage.style.backgroundImage = `url('${charArray[0].src}')`;
+    // selection = '';
+    // $('.columns').empty();
+    // $('.end-screen').toggleClass('hidden');
+    // // $('.select-char').toggleClass('hidden');
+    // // $('.game-container').toggleClass('hidden');
+    // generateColumns(randomTop,randomBottom);
+    // //maybe speed needs to change before columns are generated
+    // speed = 1500;
+    // $('.countdown').html(3);
+    // $('.countdown').toggleClass('hidden');
+    // $('.score').html(0);
+    // $('.score2').html(0);
+    // startCountdown();
   }
 
   // listens for the enter key and then starts the game
@@ -516,7 +514,6 @@ window.addEventListener('DOMContentLoaded', () => {
         return true;
       }
     });
-
   }
 
   resetButton.addEventListener('click', function () {
