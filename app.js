@@ -331,43 +331,49 @@ window.addEventListener('DOMContentLoaded', () => {
 
         Player 2 – ${score2Div.textContent}`;
       }
-      // speed toggle
-      switch (index) {
-        case 10:
-          columnSpeed = 22;
-          clearInterval(moveInterval);
-          moveColumns();
-          break;
-        case 20: // foo is 0 so criteria met here so this block will run
-          columnSpeed = 19;
-          clearInterval(moveInterval);
-          moveColumns();
-          break;
-        case 30: // foo is 0 so criteria met here so this block will run
-          columnSpeed = 16;
-          clearInterval(moveInterval);
-          moveColumns();
-          break;
-        case 50: // foo is 0 so criteria met here so this block will run
-          columnSpeed = 13;
-          clearInterval(moveInterval);
-          moveColumns();
-          break;
-        case 70: // foo is 0 so criteria met here so this block will run
-          columnSpeed = 10;
-          clearInterval(moveInterval);
-          moveColumns();
-          break;
-        case 95: // foo is 0 so criteria met here so this block will run
-          columnSpeed = 7;
-          clearInterval(moveInterval);
-          moveColumns();
-          break;
-        default:
-          columnSpeed = 25;
-      }
+
+      increaseSpeed();
     }, 50);
   }
+
+  // speed toggle
+  function increaseSpeed() {
+    switch (index) {
+      case 10:
+        columnSpeed = 22;
+        clearInterval(moveInterval);
+        moveColumns();
+        break;
+      case 20: // foo is 0 so criteria met here so this block will run
+        columnSpeed = 19;
+        clearInterval(moveInterval);
+        moveColumns();
+        break;
+      case 30: // foo is 0 so criteria met here so this block will run
+        columnSpeed = 16;
+        clearInterval(moveInterval);
+        moveColumns();
+        break;
+      case 50: // foo is 0 so criteria met here so this block will run
+        columnSpeed = 13;
+        clearInterval(moveInterval);
+        moveColumns();
+        break;
+      case 70: // foo is 0 so criteria met here so this block will run
+        columnSpeed = 10;
+        clearInterval(moveInterval);
+        moveColumns();
+        break;
+      case 95: // foo is 0 so criteria met here so this block will run
+        columnSpeed = 7;
+        clearInterval(moveInterval);
+        moveColumns();
+        break;
+      default:
+        columnSpeed = 25;
+    }
+  }
+
 
   //controls all functions from start screen
   function startScreen() {
