@@ -43,7 +43,7 @@ Throughout the project, I used Trello to manage my tasks and list down prioritie
 
 5. In order to make the character motion smoother, I implemented gravity to have the parabolic effect that the original Flappy Bird introduced. This made for more realistic jumps and descents.
 
-<div style='position:relative;padding-bottom:54%'><iframe src='https://gfycat.com/ifr/ShoddyPerfumedChinchilla' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0' allowfullscreen></iframe></div>
+	[![](https://thumbs.gfycat.com/ShoddyPerfumedChinchilla-size_restricted.gif)](https://gfycat.com/gifs/detail/ShoddyPerfumedChinchilla)
 
 ### Bonus Features
 
@@ -57,7 +57,8 @@ After achieving my core objectives, I decided to introduce a few more features t
 
 3. **Character Selection** – A friend suggested to me that having a Light Side vs Dark Side battle would be a fun feature to introduce. So I decided to implement a character selection feature for fun. Surprisingly, it ended up impacting the user experience more than I had anticipated and it also helped to craft a more polished game.
 
-<div style='position:relative;padding-bottom:54%'><iframe src='https://gfycat.com/ifr/WeepySevereGrayling' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0' allowfullscreen></iframe></div>
+	[![](https://thumbs.gfycat.com/WeepySevereGrayling-size_restricted.gif)](https://gfycat.com/gifs/detail/WeepySevereGrayling)
+
 
 ---
 # Wins
