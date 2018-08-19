@@ -37,7 +37,7 @@ Throughout the project, I used Trello to manage my tasks and list down prioritie
 
 2. I added a simple box div, which would lay as foundation for Han Solo and future characters. I also added some divs to act as columns.
 
-3. With the basic HTML structure in place, I decided to make the elements more dynamic. Instead of cluterring the DOM with ever present columns of pipes, I wrote a function to generate them dynamically at a set interval, as long as the game is still running.
+3. With the basic HTML structure in place, I decided to make the elements more dynamic. Instead of cluttering the DOM with ever present columns of pipes, I wrote a function to generate them dynamically at a set interval, as long as the game is still running.
  
 4. After the essential game elements were in place, I had to figure out how to detect collision. This is detailed below in the 'Wins' section.
 
