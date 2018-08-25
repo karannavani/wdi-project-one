@@ -3,7 +3,7 @@
 > **[Play Flying Solo](https://karannavani.github.io/wdi-project-one/)**
 
 # Goal
-To build a fun and interesting game, using Javascript or jQuery for DOM manipulation.
+To build a fun and interesting game, using Javascript or jQuery for DOM manipulation (in 7 days).
 
 # Game
 ![](https://i.imgur.com/XXlUwEV.png)
