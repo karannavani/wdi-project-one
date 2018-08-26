@@ -6,7 +6,7 @@
 To build a fun and interesting game, using Javascript or jQuery for DOM manipulation (in 7 days).
 
 # Game
-![](https://i.imgur.com/XXlUwEV.png)
+<p align="center"><img src="https://i.imgur.com/XXlUwEV.png"></p>
 
 Flying Solo is a spin on the classic addictive game – Flappy Bird, with a Star Wars theme.
 
@@ -33,7 +33,7 @@ Throughout the project, I used Trello to manage my tasks and list down prioritie
 
 1. My challenge was to figure out what would be the best way to implement this in a browser using Javascript. I decided that having the character fixed on the x axis and having the pipes move toward it would be an efficient way to get started. 
  	
-![](https://i.imgur.com/cgvuD9R.png)	
+<p align="center"><img src="https://i.imgur.com/cgvuD9R.png"></p>
 
 2. I added a simple box div, which would lay as foundation for Han Solo and future characters. I also added some divs to act as columns.
 
@@ -43,7 +43,7 @@ Throughout the project, I used Trello to manage my tasks and list down prioritie
 
 5. In order to make the character motion smoother, I implemented gravity to have the parabolic effect that the original Flappy Bird introduced. This made for more realistic jumps and descents.
 
-	[![](https://thumbs.gfycat.com/ShoddyPerfumedChinchilla-size_restricted.gif)](https://gfycat.com/gifs/detail/ShoddyPerfumedChinchilla)
+<p align="center"><img src="https://thumbs.gfycat.com/ShoddyPerfumedChinchilla-size_restricted.gif"></p>
 
 ### Bonus Features
 
@@ -57,8 +57,7 @@ After achieving my core objectives, I decided to introduce a few more features t
 
 3. **Character Selection** – A friend suggested to me that having a Light Side vs Dark Side battle would be a fun feature to introduce. So I decided to implement a character selection feature for fun. Surprisingly, it ended up impacting the user experience more than I had anticipated and it also helped to craft a more polished game.
 
-	[![](https://thumbs.gfycat.com/WeepySevereGrayling-size_restricted.gif)](https://gfycat.com/gifs/detail/WeepySevereGrayling)
-
+<p align="center"><img src="https://thumbs.gfycat.com/WeepySevereGrayling-size_restricted.gif"></p>
 
 ---
 # Wins
