@@ -18,10 +18,6 @@ There is a single player mode and a multiplayer mode.
 * CSS 3
 * Javascript (ECMAScript 6)
 * jQuery
-* Github
-* Git
-* Google Fonts
-* CSS Animations
 
 ---
 # Approach Taken
