@@ -56,6 +56,10 @@ After achieving my core objectives, I decided to introduce a few more features t
 <p align="center"><img src="https://thumbs.gfycat.com/WeepySevereGrayling-size_restricted.gif"></p>
 
 ---
+# Blockers
+* **Game Reset** – As my code grew in complexity, it became harder to keep track of all the variables and intervals I was running. This caused issues with the reset functionality of the game, where the game still continues to run even after a collision.
+
+---
 # Wins
 * **Collision** – Figuring out collision detection turned out to be quite a challenge, since I had to figure out how to compare the position of the character against the position of the columns.
 
@@ -64,10 +68,6 @@ After achieving my core objectives, I decided to introduce a few more features t
 	With the help of my tutor, I devised a better way to do this. Instead of looping through all the columns being infinitely generated, I decided to perform the collision detection only against the column which is immediately in front of the character. This made for much easier code and was light on the computation.
 
 * **Multiplayer** – I had scalability in mind from the very beginning, I ensured that my code was divided into small reusable functions. This came in handy when I tried to implement multiplayer support. There was minimal duplication required to make this work.
-
----
-# Blockers
-* **Game Reset** – As my code grew in complexity, it became harder to keep track of all the variables and intervals I was running. This caused issues with the reset functionality of the game, where the game still continues to run even after a collision.
 
 ---
 # Future Features
